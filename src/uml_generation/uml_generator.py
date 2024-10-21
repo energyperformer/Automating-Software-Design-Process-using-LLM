@@ -1,70 +1,92 @@
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+import torch
+import requests
 import os
+import subprocess
+import base64
+import zlib
+import urllib.request
+import shutil
+import traceback
 
-def load_model():
-    """
-    Load the fine-tuned T5 model and tokenizer.
+model_name = "gpt2"  # Replace with your fine-tuned model name
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name)
 
-    Returns:
-    tuple: (model, tokenizer) - The loaded T5 model and tokenizer.
 
-    Raises:
-    ValueError: If the model is not found in the specified path.
-    """
-    model_path = "./models/finetuned_llm"
-    if not os.path.exists(model_path):
-        raise ValueError("Model not found. Please fine-tune the model first!")
-    model = T5ForConditionalGeneration.from_pretrained(model_path)
-    tokenizer = T5Tokenizer.from_pretrained(model_path)
-    return model, tokenizer
-
-def generate_uml_from_srs(srs_text):
-    """
-    Generate UML code from the given SRS text using the fine-tuned T5 model.
-
-    Args:
-    srs_text (str): The input Software Requirements Specification text.
-
-    Returns:
-    str: The generated UML code.
-    """
-    model, tokenizer = load_model()
-    inputs = tokenizer.encode("Generate UML for: " + srs_text, return_tensors="pt", max_length=512, truncation=True)
-    outputs = model.generate(inputs, max_length=512)
-    uml_code = tokenizer.decode(outputs[0], skip_special_tokens=True)
+def generate_use_case_uml(processed_data):
+    entities = processed_data.get('entities', [])
+    noun_phrases = processed_data.get('noun_phrases', [])
+    
+    # Extract potential actors and use cases
+    actors = list(set([ent[0] for ent in entities if ent[1] in ['PERSON', 'ORG']]))[:5]  # Limit to 5 actors
+    use_cases = list(set([np for np in noun_phrases if np.lower().startswith(('manage', 'create', 'update', 'delete', 'view', 'process', 'generate', 'analyze'))][:10]))  # Limit to 10 use cases
+    
+    # Generate UML code
+    uml_code = "@startuml\n"
+    
+    # Add actors
+    for actor in actors:
+        actor = actor.replace('"', '').replace('\n', ' ').strip()  # Remove quotes and newlines
+        if actor:
+            uml_code += f'actor "{actor}"\n'
+    
+    # Add use cases
+    for use_case in use_cases:
+        use_case = use_case.replace('"', '').replace('\n', ' ').strip()  # Remove quotes and newlines
+        if use_case:
+            uml_code += f'usecase "{use_case}"\n'
+    
+    # Add some connections
+    for i, actor in enumerate(actors):
+        actor = actor.replace('"', '').replace('\n', ' ').strip()
+        for j in range(min(2, len(use_cases))):
+            use_case = use_cases[j].replace('"', '').replace('\n', ' ').strip()
+            if actor and use_case:
+                uml_code += f'"{actor}" --> "{use_case}"\n'
+    
+    uml_code += "@enduml"
     return uml_code
 
-def process_srs_file(input_file):
-    """
-    Read an SRS file and generate UML code from its content.
+def generate_uml_code(processed_data):
+    return generate_use_case_uml(processed_data)
 
-    Args:
-    input_file (str): Path to the input SRS text file.
+__all__ = ['generate_uml_code']
 
-    Returns:
-    str: The generated UML code.
-    """
-    with open(input_file, "r") as f:
-        srs_text = f.read()
-    uml_code = generate_uml_from_srs(srs_text)
-    return uml_code
+def generate_uml_diagram(uml_code_path, output_path):
+    try:
+        # Ensure plantuml.jar is in the project directory
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+        plantuml_path = os.path.join(project_root, 'plantuml.jar')
+        
+        if not os.path.exists(plantuml_path):
+            print(f"PlantUML jar not found. Attempting to download...")
+            urllib.request.urlretrieve("https://sourceforge.net/projects/plantuml/files/plantuml.jar/download", plantuml_path)
+            print(f"PlantUML jar downloaded to {plantuml_path}")
 
-def save_uml_to_file(uml_code, output_file):
-    """
-    Save the generated UML code to a file.
+        # Ensure the output directory exists
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    Args:
-    uml_code (str): The UML code to be saved.
-    output_file (str): Path to the output file where UML code will be saved.
-    """
-    with open(output_file, "w") as f:
-        f.write(uml_code)
+        # Run plantuml command
+        command = f"java -jar \"{plantuml_path}\" \"{uml_code_path}\" -o \"{os.path.dirname(output_path)}\""
+        print(f"Executing command: {command}")
+        result = subprocess.run(command, shell=True, capture_output=True, text=True)
 
-if __name__ == "__main__":
-    input_file = "data/processed_cleaned/sample_srs.txt"
-    output_file = "data/uml/sample_uml.uml"
-    
-    uml_code = process_srs_file(input_file)
-    
-    save_uml_to_file(uml_code, output_file)
-    print(f"UML code generated and saved to {output_file}")
+        print(f"Command stdout: {result.stdout}")
+        print(f"Command stderr: {result.stderr}")
+
+        # The output file will have the same name as the input file but with .png extension
+        expected_output_file = os.path.splitext(uml_code_path)[0] + ".png"
+        
+        if os.path.exists(expected_output_file):
+            shutil.move(expected_output_file, output_path)
+            print(f"UML diagram generated successfully: {output_path}")
+            return True
+        else:
+            print(f"Failed to generate UML diagram. Output file not found: {expected_output_file}")
+            return False
+
+    except Exception as e:
+        print(f"Unexpected error generating UML diagram: {str(e)}")
+        traceback.print_exc()
+        return False

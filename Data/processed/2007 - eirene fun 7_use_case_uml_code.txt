@@ -1,0 +1,13 @@
+@startuml
+actor "Principal"
+actor "Interface"
+actor "Measures"
+actor "Speech"
+actor "Terminate Railway"
+usecase "Management flexibility"
+"Principal" --> "Management flexibility"
+"Interface" --> "Management flexibility"
+"Measures" --> "Management flexibility"
+"Speech" --> "Management flexibility"
+"Terminate Railway" --> "Management flexibility"
+@enduml

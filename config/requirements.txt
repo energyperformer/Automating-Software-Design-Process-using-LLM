@@ -1,7 +1,0 @@
-transformers
-datasets
-PyPDF2
-pdfplumber
-torch
-plantuml
-pyyaml

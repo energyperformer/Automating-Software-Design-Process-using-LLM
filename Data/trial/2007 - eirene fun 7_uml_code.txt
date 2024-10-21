@@ -1,0 +1,58 @@
+Generate PlantUML code for a class diagram based on the following entities and noun phrases:
+
+Entities:
+GSM-R Functional Group 
+ Date (ORG)
+17 (CARDINAL)
+May 2006 (DATE)
+7 
+  (CARDINAL)
+93 (CARDINAL)
+NETWORK (PERSON)
+UIC Project (ORG)
+1 (CARDINAL)
+Version Date Details (ORG)
+6.0 (CARDINAL)
+
+Noun Phrases:
+   
+  
+  
+ 
+ Source
+GSM-R Functional Group 
+ Date
+17 May 2006 
+ Reference
+PSA167D005 
+ Version
+7 
+ No
+pages
+Version Date Details
+(FCR
+FCR
+O-9002
+O-9003
+(FCR
+O-9090
+GSM-R  
+Operators Group
+LEFT
+BLANK PSA167D005-7   Page 1 
+  
+Document History 1 
+List
+abbreviations
+5 
+List
+definitions
+14 
+1.5 Structure
+
+PlantUML code:  An abstract structure that provides a way to generate or validate a type of document, or a group of documents, using the PSC-2 protocol. 
+2.1 Structure Structure A structure composed of two or more objects, which are represented by the struct, and which correspond to the structures in the group, as indicated in Table 1 . 
+3.2 Group Group members in a structure are those members whose names are defined in PASCAL. (This group contains members who have the same name as the members of the structure, but no other members.) ~~~~
+4.4 Name Name of a member of an abstract group.
+PASCALS ~~
+Listed by members: A list of members. Members of this list are named by PARCALS. The name of one or the other of these members is used in relation to a PARA. A member can have any number of possible names. When a value is listed, the value must be of PANCAL type. Note that in this case, there is no special meaning for the last name. For example, an index of "R" or "A"

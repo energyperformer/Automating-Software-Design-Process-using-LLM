@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+actor "Hardware"
+actor "Dependencies"
+actor "Safety Requirements Analysis"
+actor "Color Search Engine"
+actor "the Hyper Text Transfer Protocol"
+usecase "delete colors"
+usecase "update"
+usecase "delete paint information"
+usecase "delete permissions"
+"Hardware" -- "delete colors"
+"Hardware" -- "update"
+"Hardware" -- "delete paint information"
+"Dependencies" -- "update"
+"Dependencies" -- "delete paint information"
+"Dependencies" -- "delete permissions"
+"Safety Requirements 
+Analysis" -- "delete paint 
+information"
+"Safety Requirements 
+Analysis" -- "delete permissions"
+"Safety Requirements 
+Analysis" -- "delete colors"
+"Color Search Engine" -- "delete permissions"
+"Color Search Engine" -- "delete colors"
+"Color Search Engine" -- "update"
+"the Hyper Text Transfer Protocol" -- "delete colors"
+"the Hyper Text Transfer Protocol" -- "update"
+"the Hyper Text Transfer Protocol" -- "delete paint 
+information"
+@enduml

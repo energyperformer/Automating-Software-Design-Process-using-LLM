@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+actor "TLS" as A0
+actor "Facebook, Flickr" as A1
+actor "API" as A2
+actor "RAM" as A3
+actor "Fig 1
+4.1.1" as A4
+
+rectangle System {
+  usecase "management" as UC0
+  usecase "updates" as UC1
+  usecase "View" as UC2
+}
+
+A0 --> UC0
+A0 --> UC1
+A1 --> UC0
+A1 --> UC1
+A2 --> UC0
+A2 --> UC1
+A3 --> UC0
+A3 --> UC1
+A4 --> UC0
+A4 --> UC1
+@enduml
