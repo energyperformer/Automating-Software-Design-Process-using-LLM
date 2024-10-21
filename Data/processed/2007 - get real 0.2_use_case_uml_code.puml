@@ -1,0 +1,13 @@
+@startuml
+actor "DSS"
+actor "HS CS"
+actor "Page 8"
+actor "3.4 Women in Computer Science"
+actor "IEEE"
+usecase "viewers"
+"DSS" --> "viewers"
+"HS CS" --> "viewers"
+"Page 8" --> "viewers"
+"3.4 Women in Computer Science" --> "viewers"
+"IEEE" --> "viewers"
+@enduml

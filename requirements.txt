@@ -1,9 +1,9 @@
-spacy==3.5.3
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0.tar.gz
+spacy
+# https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0.tar.gz
+# PyPDF2
 PyPDF2==3.0.1
-transformers==4.29.2
-torch==2.0.1
+transformers
+torch
 plantuml==0.3.0
-
-
-
+keybert
+graphviz
