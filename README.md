@@ -77,7 +77,7 @@ Before you begin, ensure you have met the following requirements:
 
 ```
 
-##Some Common Errors in Setup Phase
+## Some Common Errors in Setup Phase
 
 The error ModuleNotFoundError: No module named 'torch._C' typically indicates that PyTorch was not installed properly or is incompatible with your system.
 ```
