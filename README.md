@@ -77,9 +77,46 @@ Before you begin, ensure you have met the following requirements:
 
 ```
 
+##Some Common Errors in Setup Phase
 
+The error ModuleNotFoundError: No module named 'torch._C' typically indicates that PyTorch was not installed properly or is incompatible with your system.
+```
+pip uninstall -y torch torchvision torchaudio
+pip cache purge
+pip install torch torchvision torchaudio
+```
+If you're still having issues, you might want to recreate your virtual environment:
+```
+deactivate  # Exit the current virtual environment
+rm -rf venv  # Remove the old virtual environment
+python -m venv venv  # Create a new virtual environment
+source venv/Scripts/activate  # Activate the new environment
+pip install -r requirements.txt  # Reinstall all your dependencies
+```
+Here's an updated run_project.sh script that incorporates these steps:
+```
+#!/bin/bash
 
-## Contributing
+# Activate virtual environment (for Windows Git Bash / MinGW)
+source venv/Scripts/activate
+
+# Uninstall existing PyTorch
+pip uninstall -y torch torchvision torchaudio
+pip cache purge
+
+# Install PyTorch (adjust the command based on your system requirements)
+pip install torch torchvision torchaudio
+
+# Verify PyTorch installation
+python -c "import torch; print(torch.__version__)"
+
+# Run the main script
+python src/main.py
+
+echo "Project execution complete. Check the 'data/processed' folder for the output UML diagram."
+
+```
+
 
 Contributions to this project are welcome. Please follow these steps:
 
