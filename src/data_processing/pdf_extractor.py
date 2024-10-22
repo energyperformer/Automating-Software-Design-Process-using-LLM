@@ -23,21 +23,6 @@ def process_srs_document(pdf_path):
             text += page.extract_text()
     return text
 
-# def extract_text_from_pdf(pdf_path):
-#     text = ""
-#     with open(pdf_path, 'rb') as file:
-#         reader = PyPDF2.PdfReader(file)
-#         for page in reader.pages:
-#             text += page.extract_text()
-#     return text
-
-# def process_srs_document(pdf_path):
-#     text = ""
-#     with open(pdf_path, 'rb') as file:
-#         reader = PyPDF2.PdfReader(file)
-#         for page in reader.pages:
-#             text += page.extract_text()
-#     return text
 
 def extract_key_information(text):
     doc = nlp(text)
