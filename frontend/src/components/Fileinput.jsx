@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import css from './Fileinput.module.css';
 function Fileinput(props) {
     const [file, setFile] = useState(null);
-    const [prompt,changePrompt] = useState("Desi GPT , Girish is a gandu")
+    const [prompt,changePrompt] = useState("Desi GPT , tagubotu varun")
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
     };
