@@ -1,7 +1,65 @@
-.main{
-    height: 100vh;
+.input{
+    width: 85%;
+    border: 2px solid white;
+    padding: 1%;
+    border-radius: 8px; 
+}
+
+.file_input_wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Hide the default file input */
+  .file_input_wrapper input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  /* Style the label to look like a button with an icon */
+  .custom_file_label {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  /* Add paperclip icon using an inline SVG */
+  .custom_file_label svg {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  /* Hover effect */
+  .custom_file_label:hover {
+    background-color: #444;
+  }
+.prompt{
+    width: 85%;
+    height: 100%;
+    background-color: transparent;
+    border-color: transparent;
+    color : white;
+    outline: transparent;
+    font-size: large;
+}
+
+.btn{
+    height: 6vh;
+    width: 5%;
+    border-radius: 50%;
+    cursor: pointer;
 }
