@@ -1,13 +1,13 @@
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
-import torch
-import requests
-import os
-import subprocess
-import base64
-import zlib
-import urllib.request
-import shutil
-import traceback
+# import torch
+# import requests
+# import os
+# import subprocess
+# import base64
+# import zlib
+# import urllib.request
+# import shutil
+# import traceback
 
 model_name = "gpt2"  # Replace with your fine-tuned model name
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
@@ -53,40 +53,40 @@ def generate_uml_code(processed_data):
 
 __all__ = ['generate_uml_code']
 
-def generate_uml_diagram(uml_code_path, output_path):
-    try:
-        # Ensure plantuml.jar is in the project directory
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-        plantuml_path = os.path.join(project_root, 'plantuml.jar')
+# def generate_uml_diagram(uml_code_path, output_path):
+#     try:
+#         # Ensure plantuml.jar is in the project directory
+#         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+#         plantuml_path = os.path.join(project_root, 'plantuml.jar')
         
-        if not os.path.exists(plantuml_path):
-            print(f"PlantUML jar not found. Attempting to download...")
-            urllib.request.urlretrieve("https://sourceforge.net/projects/plantuml/files/plantuml.jar/download", plantuml_path)
-            print(f"PlantUML jar downloaded to {plantuml_path}")
+#         if not os.path.exists(plantuml_path):
+#             print(f"PlantUML jar not found. Attempting to download...")
+#             urllib.request.urlretrieve("https://sourceforge.net/projects/plantuml/files/plantuml.jar/download", plantuml_path)
+#             print(f"PlantUML jar downloaded to {plantuml_path}")
 
-        # Ensure the output directory exists
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+#         # Ensure the output directory exists
+#         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-        # Run plantuml command
-        command = f"java -jar \"{plantuml_path}\" \"{uml_code_path}\" -o \"{os.path.dirname(output_path)}\""
-        print(f"Executing command: {command}")
-        result = subprocess.run(command, shell=True, capture_output=True, text=True)
+#         # Run plantuml command
+#         command = f"java -jar \"{plantuml_path}\" \"{uml_code_path}\" -o \"{os.path.dirname(output_path)}\""
+#         print(f"Executing command: {command}")
+#         result = subprocess.run(command, shell=True, capture_output=True, text=True)
 
-        print(f"Command stdout: {result.stdout}")
-        print(f"Command stderr: {result.stderr}")
+#         print(f"Command stdout: {result.stdout}")
+#         print(f"Command stderr: {result.stderr}")
 
-        # The output file will have the same name as the input file but with .png extension
-        expected_output_file = os.path.splitext(uml_code_path)[0] + ".png"
+#         # The output file will have the same name as the input file but with .png extension
+#         expected_output_file = os.path.splitext(uml_code_path)[0] + ".png"
         
-        if os.path.exists(expected_output_file):
-            shutil.move(expected_output_file, output_path)
-            print(f"UML diagram generated successfully: {output_path}")
-            return True
-        else:
-            print(f"Failed to generate UML diagram. Output file not found: {expected_output_file}")
-            return False
+#         if os.path.exists(expected_output_file):
+#             shutil.move(expected_output_file, output_path)
+#             print(f"UML diagram generated successfully: {output_path}")
+#             return True
+#         else:
+#             print(f"Failed to generate UML diagram. Output file not found: {expected_output_file}")
+#             return False
 
-    except Exception as e:
-        print(f"Unexpected error generating UML diagram: {str(e)}")
-        traceback.print_exc()
-        return False
+#     except Exception as e:
+#         print(f"Unexpected error generating UML diagram: {str(e)}")
+#         traceback.print_exc()
+#         return False

@@ -7,3 +7,6 @@ torch
 plantuml==0.3.0
 keybert
 graphviz
+numpy<2.0
+tensorflow
+sentence-transformers

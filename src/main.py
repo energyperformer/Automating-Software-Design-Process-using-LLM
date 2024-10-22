@@ -2,8 +2,8 @@ import os
 import random
 from data_processing.pdf_extractor import process_srs_document
 from nlp.nlp_pipeline import process_text
-from uml_generation.uml_generator import generate_use_case_uml, generate_uml_diagram
-from diagram_renderer import render_uml_diagram
+from uml_generation.uml_generator import generate_use_case_uml
+from diagram_renderer import generate_uml_diagram
 
 def save_uml_code(uml_code, output_path):
     # Change the file extension to .puml
@@ -49,12 +49,14 @@ def main():
         uml_code_path = os.path.abspath(os.path.join('data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_use_case_uml_code.puml"))
         with open(uml_code_path, 'w', encoding='utf-8') as f:
             f.write(uml_code)
+        print('*'*10)
         print(f"Use case UML code saved to {uml_code_path}")
 
         # Generate UML diagram
         uml_diagram_path = os.path.abspath(os.path.join('data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_use_case_diagram.png"))
         if generate_uml_diagram(uml_code_path, uml_diagram_path):
-            print(f"Use case diagram generated and saved to {uml_diagram_path}")
+            # print(f"Use case diagram generated and saved to {uml_diagram_path}")
+            pass
         else:
             print("Failed to generate use case diagram.")
     except Exception as e:
