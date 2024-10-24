@@ -56,7 +56,7 @@
 # __all__ = ['generate_uml_code']
 from transformers import T5ForConditionalGeneration, RobertaTokenizer
 
-model_name = "Salesforce/codet5-small"  # You can choose other sizes like base, large, etc.
+model_name = "Salesforce/codet5-small"  
 tokenizer = RobertaTokenizer.from_pretrained(model_name)
 model = T5ForConditionalGeneration.from_pretrained(model_name)
 
