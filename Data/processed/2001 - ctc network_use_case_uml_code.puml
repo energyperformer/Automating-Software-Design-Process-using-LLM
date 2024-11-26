@@ -1,0 +1,15 @@
+@startuml
+    actor TrafficManager
+    actor IncidentReporter
+    actor RemoteOperator
+    usecase "Collect Data" as UC_CollectData
+    usecase "Transmit Data" as UC_TransmitData
+    usecase "Display Web Map" as UC_DisplayWebMap
+    usecase "Report Incident" as UC_ReportIncident
+    usecase "Control Devices" as UC_ControlDevices
+    TrafficManager --> UC_CollectData
+    TrafficManager --> UC_TransmitData
+    TrafficManager --> UC_DisplayWebMap
+    IncidentReporter --> UC_ReportIncident
+    RemoteOperator --> UC_ControlDevices
+    @enduml

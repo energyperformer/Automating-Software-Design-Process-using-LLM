@@ -1,13 +1,10 @@
-
-
 import spacy
 from keybert import KeyBERT
 
 nlp = spacy.load("en_core_web_sm")
 kw_model = KeyBERT()
-
-
 def process_text(text):
+    
     doc = nlp(text)
     
     entities = [(ent.text, ent.label_) for ent in doc.ents]
@@ -21,3 +18,4 @@ def process_text(text):
         "noun_phrases": noun_phrases,
         "keywords": [kw for kw, _ in keywords]
     }
+    

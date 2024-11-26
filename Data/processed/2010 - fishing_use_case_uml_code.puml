@@ -1,21 +1,31 @@
 @startuml
-actor "NF Number"
-actor "GBRGS Norwegia"
-actor "Requirements"
-actor "Data Operations"
-actor "UK Fisheries"
-usecase "processing"
-usecase "Processing/presentation"
-usecase "Processing sub"
-usecase "Processing Sub"
-"NF Number" --> "processing"
-"NF Number" --> "Processing/presentation"
-"GBRGS Norwegia" --> "processing"
-"GBRGS Norwegia" --> "Processing/presentation"
-"Requirements" --> "processing"
-"Requirements" --> "Processing/presentation"
-"Data Operations" --> "processing"
-"Data Operations" --> "Processing/presentation"
-"UK Fisheries" --> "processing"
-"UK Fisheries" --> "Processing/presentation"
+actor VesselMaster
+actor FisheriesAdministrator
+actor Supplier
+actor Agent
+
+usecase "Capture Fishing Activity Data" as CaptureData
+usecase "Transmit Data" as TransmitData
+usecase "Receive Acknowledgment" as ReceiveAck
+usecase "Print Logbook" as PrintLogbook
+usecase "Provide Test Transmission" as TestTransmission
+usecase "Manage Corrections" as ManageCorrections
+usecase "Manage Deletions" as ManageDeletions
+usecase "Ensure Data Security" as EnsureSecurity
+
+VesselMaster --> CaptureData
+VesselMaster --> TransmitData
+VesselMaster --> ReceiveAck
+VesselMaster --> PrintLogbook
+VesselMaster --> TestTransmission
+VesselMaster --> ManageCorrections
+VesselMaster --> ManageDeletions
+VesselMaster --> EnsureSecurity
+
+FisheriesAdministrator --> ReceiveAck
+FisheriesAdministrator --> TestTransmission
+
+Supplier --> EnsureSecurity
+
+Agent --> PrintLogbook
 @enduml

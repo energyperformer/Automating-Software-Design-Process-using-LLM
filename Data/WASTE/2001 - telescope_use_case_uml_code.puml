@@ -1,0 +1,53 @@
+Generate UML code in PlantUML format for the following actors and use cases:
+Actors:
+- Table  
+EB-1
+- Data Relay Satellite System
+- the S/C the S/C
+- Produce Raw Frame
+- Real Time Incrementer (Interval Timer
+Use Cases:
+- processing
+- Processing
+- Processor BIT
+- view
+- Processing CSC
+
+Provide UML code with actors and use cases linked appropriately.
+
+Requirements
+
+You must have at least 3.0.1.
+
+Install the following dependencies:
+
+npm install -g plant-uml
+
+Install the following dependencies:
+
+npm install -g plant-uml -g node_modules
+
+Install the following dependencies:
+
+npm install -g plant-uml -g node_modules
+
+Install the following dependencies:
+
+npm install -g plant-uml -g node_modules
+
+Install the following dependencies:
+
+npm install -g plant-uml -g node_modules
+
+Install the following dependencies:
+
+npm install -g plant-uml -g node_modules
+
+Install the following dependencies:
+
+npm install -g plant-uml -g node_modules
+
+Install the following dependencies:
+
+npm install -g plant-uml -g node_modules
+

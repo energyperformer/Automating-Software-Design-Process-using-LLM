@@ -1,0 +1,57 @@
+Please generate UML code in PlantUML format with the following actors and use cases. Follow the exact syntax.
+
+
+Examples:
+
+@startuml
+actor "User"
+actor "Admin"
+usecase "Login"
+usecase "Register"
+"User" --> "Login"
+"Admin" --> "Register"
+@enduml
+
+@startuml
+actor "Customer"
+actor "Sales Rep"
+usecase "Place Order"
+usecase "Cancel Order"
+"Customer" --> "Place Order"
+"Sales Rep" --> "Cancel Order"
+@enduml
+    
+Actors:
+actor "• Allow"
+actor "• Receive"
+actor "Control System Correlator Hardware Correlator Backend Data Processing EVLA Monitor & Control System"
+actor "Serviceability"
+actor "the Backend Data Processing System"
+
+Use Cases:
+usecase "processing"
+usecase "processing hardware"
+usecase "processor hardware failure"
+
+Links:
+"• Allow" --> "processing"
+"• Allow" --> "processing hardware"
+"• Allow" --> "processor hardware failure"
+"• Receive" --> "processing"
+"• Receive" --> "processing hardware"
+"• Receive" --> "processor hardware failure"
+"Control System Correlator Hardware Correlator Backend Data Processing EVLA Monitor & Control System" --> "processing"
+"Control System Correlator Hardware Correlator Backend Data Processing EVLA Monitor & Control System" --> "processing hardware"
+"Control System Correlator Hardware Correlator Backend Data Processing EVLA Monitor & Control System" --> "processor hardware failure"
+"Serviceability" --> "processing"
+"Serviceability" --> "processing hardware"
+"Serviceability" --> "processor hardware failure"
+"the Backend Data Processing System" --> "processing"
+"the Backend Data Processing System" --> "processing hardware"
+"the Backend Data Processing System" --> "processor hardware failure"
+
+@enduml
+
+Ensure that the UML code follows the above format exactly, without additional text or explanations.
+
+For more information on how to use UML, see the following: http://the-us-web.org/documentation/UML_Guide.html

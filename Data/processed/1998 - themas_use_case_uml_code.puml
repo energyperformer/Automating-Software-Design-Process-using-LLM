@@ -1,0 +1,26 @@
+@startuml
+
+actor Supervisor
+actor Thermostat
+actor "Heating/Cooling Unit" as HCU
+
+usecase "Initialize System" as UC1
+usecase "Validate Temperature" as UC2
+usecase "Monitor Temperature" as UC3
+usecase "Determine Utilization" as UC4
+usecase "Generate H/C Signal" as UC5
+usecase "Generate Alarm Data" as UC6
+usecase "Generate Event Data" as UC7
+usecase "Change Thermostat Setting" as UC8
+usecase "Generate Reports" as UC9
+
+Supervisor --> UC1
+Supervisor --> UC8
+Supervisor --> UC9
+
+Thermostat --> UC2
+Thermostat --> UC3
+
+HCU --> UC5
+
+@enduml

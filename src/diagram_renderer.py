@@ -21,11 +21,9 @@ def generate_uml_diagram(uml_code_path, output_path):
 
         # Run plantuml command
         command = f"java -jar \"{plantuml_path}\" \"{uml_code_path}\" -o \"{os.path.dirname(output_path)}\""
-        # print(f"Executing command: {command}")
+
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
 
-        # print(f"Command stdout: {result.stdout}")
-        # print(f"Command stderr: {result.stderr}")
 
         # The output file will have the same name as the input file but with .png extension
         expected_output_file = os.path.splitext(uml_code_path)[0] + ".png"
