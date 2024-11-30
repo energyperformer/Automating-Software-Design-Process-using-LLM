@@ -1,0 +1,46 @@
+@startuml
+actor Meteorologist
+actor SoftwareEngineer
+actor SuperUser
+actor ScientistRAL
+actor LessFamiliarUser
+
+usecase "Set up and submit a model job (WeatherFDDA, ClimoFDDA, CAM)" as UC1
+usecase "Set up and submit a 'post-processing' job" as UC2
+usecase "Submit a 'by-hand' job" as UC3
+usecase "Load a job configuration from a file and submit the job" as UC4
+usecase "Retrieve and run a previously saved job configuration" as UC5
+usecase "View scheduled, running and old jobs" as UC6
+usecase "Stop a job" as UC7
+usecase "Start/restart/resume a job" as UC8
+
+Meteorologist --> UC1
+Meteorologist --> UC2
+Meteorologist --> UC3
+Meteorologist --> UC4
+Meteorologist --> UC5
+Meteorologist --> UC6
+Meteorologist --> UC7
+Meteorologist --> UC8
+
+SoftwareEngineer --> UC1
+SoftwareEngineer --> UC2
+SoftwareEngineer --> UC3
+SoftwareEngineer --> UC4
+SoftwareEngineer --> UC5
+SoftwareEngineer --> UC6
+SoftwareEngineer --> UC7
+SoftwareEngineer --> UC8
+
+SuperUser --> UC7
+SuperUser --> UC8
+
+ScientistRAL --> UC1
+ScientistRAL --> UC2
+ScientistRAL --> UC4
+ScientistRAL --> UC5
+ScientistRAL --> UC6
+
+LessFamiliarUser --> UC6
+LessFamiliarUser --> UC7
+@enduml
