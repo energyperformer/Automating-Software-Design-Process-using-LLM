@@ -1,0 +1,43 @@
+@startuml
+
+!define RECTANGLE rectangle
+!define PACKAGE package
+
+' Actors
+actor CIA_Application
+actor CIA_Administrator
+actor TCN_Administrator
+actor CIA_User
+
+' Packages
+PACKAGE "TCN Administrative Tasks" {
+    CIA_Application --> (Check Driver's Issued Cards)
+    CIA_Application --> (Check Tachograph Card Status)
+    CIA_Application --> (Declaration of Card Status Modification)
+    CIA_Application --> (Send Card/Driving License Assignment)
+    CIA_Application --> (Get Phonex Search Keys)
+    CIA_Application --> (Get US/Ascii Transliteration)
+    CIA_User --> (Get Phonex Search Keys)
+    CIA_User --> (Get US/Ascii Transliteration)
+}
+
+PACKAGE "TCN Statistics Tasks" {
+    TCN_Administrator --> (Add a new CIA)
+    TCN_Administrator --> (Reset Password)
+    TCN_Administrator --> (Generate Statistics)
+    TCN_Administrator --> (Browse Statistics)
+    CIA_Administrator --> (Generate Statistics)
+    CIA_Administrator --> (Browse Statistics)
+}
+
+PACKAGE "TCN System Tasks" {
+    TCN_Administrator --> (Monitor the system)
+    TCN_Administrator --> (Manage Member State)
+}
+
+' Use cases
+(RECEIVE) as (Log the message)
+TCN_Administrator --> (RECEIVE)
+TCN_Application --> (RECEIVE)
+
+@enduml

@@ -1,882 +1,332 @@
- 
-Software Requirements 
-Specification 
-for 
-GParted 
-Requirements for Version 
-0.6.0-1 
-Prepared by Bill Karatzidis 
-ISE: Introduction to Software 
-Engineering (Aristotle 
-University)  
-2010-06-19  
- Software  Requirements Specificatio n for GParted  Page 1 
- 
-             
-Copyright © 2010 Bill Karatzidis. 
-     Permission is granted to copy, di stribute and/or modify this document 
-    under the terms of the GNU Free Documentation License, Version 1.3 
-    or any later version publis hed by the Free Software Foundation; 
-    with no Invariant Sections, no Fr ont-Cover Texts, and no Back-Cover Texts. 
-  A copy of the license is  included at this link: http://www.fsf.org/licensing/licenses/fdl.html
- 
- 
- Software  Requirements Specificatio n for GParted  Page 2 
- 
-Table of Contents 
-1. Introduction ............................................................................................................................. 3  
-1.1  Purpose ....................................................................................................................... .................. 3  
-1.2  Document Conventions .......................................................................................................... ...... 3 
-1.3  Intended Audience and Reading Suggestions .............................................................................. 3 
-1.4  Project Scope ................................................................................................................. ............... 4  
-1.5  References .................................................................................................................... ................ 6  
-2. Overall Description ........................................................................................................... ...... 7 
-2.1  Product Perspective ........................................................................................................... ........... 7 
-2.2  Product Features .............................................................................................................. ............. 7  
-2.3  User Classes and Characteristics .............................................................................................. .... 8 
-2.4  Operating Environment ......................................................................................................... ....... 9 
-2.5  Design and Implementation Constraints ...................................................................................... 9  
-2.6  User Docume ntation ............................................................................................................ ....... 10 
-2.7  Assumptions and Dependencies ................................................................................................. 10 
-3. System Features ............................................................................................................... ...... 11 
-3.1  Boot Menu ..................................................................................................................... ............. 11  
-3.2  Select Keymap ................................................................................................................. .......... 11 
-3.3  Language Selection Menu ....................................................................................................... ... 12 
-3.4  GParted Desktop ............................................................................................................... ......... 12 
-3.5  GParted Main Window .............................................................................................................. 13  
-3.6  Refresh Connected Devices ..................................................................................................... .. 13 
-3.7  Undo & Apply .................................................................................................................. .......... 13 
-3.8  View Device Information ....................................................................................................... .... 14 
-3.9  Create Partition Table ........................................................................................................ ........ 14 
-3.10 Create a New Partition ........................................................................................................ ....... 15 
-3.11 Delete a Pa rtition ............................................................................................................ ............ 16  
-3.12 Resize or Move a Partition .................................................................................................... ..... 16 
-3.13 Copy Partition ................................................................................................................ ............ 16  
-3.14 Paste Partition ............................................................................................................... ............. 16  
-3.15 Format Partition .............................................................................................................. ........... 17  
-3.16 Unmount Partition ...................................................................................................................... 18  
-3.17 Manage Flags .................................................................................................................. ........... 18  
-3.18 Check and Repair File System .................................................................................................. . 19 
-3.19 Label Partition ............................................................................................................................ 19  
-3.20 Take a Screenshot of the Desktop or an Active Window ........................................................... 19  
-3.21 Terminal & Mount Partitions and Sa ve Screenshots to a Device .............................................. 20  
-3.22 Information ................................................................................................................... .............. 20  
-3.23 Screen Resolution Changer ..................................................................................................... ... 21 
-3.24 Date and Time ................................................................................................................. ........... 21  
-4. External Interface Requirements ........................................................................................ 22  
-4.1  User Interfaces ............................................................................................................... ............ 22  
-4.2  Hardware Interfaces ........................................................................................................... ........ 24 
-4.3  Software Interfaces ........................................................................................................... .......... 24 
-4.4  Communications Interfaces ..................................................................................................... ... 24 
-5. Other Nonfunctional Requirements .................................................................................... 25  
-5.1  Performance Requirements ...................................................................................................... .. 25 
-5.2  Safety Requirements ........................................................................................................... ....... 25 
-5.3  Security Requirements ......................................................................................................... ...... 25 
-5.4  Software Quality Attributes ................................................................................................... .... 25 
-5.5  Other Requirements ............................................................................................................ ....... 25 
- 
- Software  Requirements Specificatio n for GParted  Page 3 
- 
-1. Introduction 
- 
-1.1 Purpose  
-The purpose of this document  is to describe  and define the functional  requirements  of 
-the Gparted application.  It follows the IEEE standard for Software Requirements  
-Specification  documents.  
- 
-Gparted is a graphical partition editor for creating, reorganizing,  and  deleting  disk 
-partitions.  Otherwise  known as the Gnome Partition Editor , it is a frontend to the GNU 
-Parted partition editor,  and  specifically  uses its library, libparted,  to detect and 
-manipulate  devices and partition  tables, and perform all the functions  it has been 
-designed for. Several optional file system tools provide support for file systems not 
-included in libparted . 
-This document  deals with the functions  of the 0.6.0‐1 version, made  available for 
-public testing in 2010‐06‐19. It is a LiveCD application,  which  means it runs  at system 
-boot, resides  in your computer’s  RAM memory, and  disappears  upon reboot,  after 
-having  performed  the desired  functions.  No installs are necessary  in any operating  
-system. 
- 
- 
-1.2 Document Conventions 
-The  software being described  in this document  has already been  developed.  The 
-functions  and characteristics  that will be analysed have  already been implemented.   
-This document  has to stay updated with any new features  that will be added in future 
-versions of the application. 
-The  System Features  in section 3 are described  in order of appearance,  as the 
-application  runs. 
-  
-1.3 Intended Audience and Reading Suggestions 
-This document  is intended for casual users, developers,  testers and  documentation  
-writers, each one having  their own needs and  uses of the software.  For a more 
-thorough  analysis on this matter, please  refer to section 2.3. 
-Section 2 provides an overall description  of the software,  and  section 3 describes  the 
-functional  requirements  of the project, particularly  useful to all of the aforementioned 
-groups. Section  4 discusses  the external interface requirements,  and finally, in section 
-5, you can find the nonfunctional  requirements  of the project. 
-Each section is divided  in subsections  where different matters are discussed.  
- 
- 
- Software  Requirements Specificatio n for GParted  Page 4 
-1.4 Project Scope 
-GParted is one of many programs  used for creating, deleting,  resizing, moving, 
-checking and copying partitions,  and  the file systems on them. This is useful for 
-creating space  for new operating  systems, reorganizing  disk space, copying  data 
-residing on  hard disks and mirroring one  partition  with another (disk imaging).  
- 
-The GParted  project deals with two different  versions.   
-• GParted, the install version, is an application  that resides permanently  in your 
-computer’s  hard drive, as a program installed  on a Linux operating  system. 
-https://sourceforge.net/projects/gparted/files/gparted/   
-• GParted Live is a .zip or an .iso file which you download  and  burn as an image on 
-a cd. With this you can boot your computer  and  use the application.  With the 
-.zip file, you can create a bootable USB  flash drive, and use that instead of the 
-cd. There is a tutorial  on this online: http://gparted.sourceforge.net/liveusb.php  
-There used to be different files for LiveCD and  LiveUSB, but they have been 
-combined  to make the GParted Live application,  a long time  ago. 
-https://sourceforge.net/projects/gparted/files/gparted ‐live‐testing/  
- 
-GParted uses GNU Parted as a backend, and aims at keeping the GUI as simple  as 
-possible, so it does not become a hindrance  to the overall casual user experience.  
- Next, some screenshots  of the main user  interface  follow. 
- 
-  
- 
- Main menu of GParted, background is shown, togeth er with the program and an open Terminal window.  Software  Requirements Specificatio n for GParted  Page 5 
- 
-Main screen of GParted  
- 
- 
-Terminal  Software  Requirements Specificatio n for GParted  Page 6 
- 
-1.5 References 
- 
-• Official page – Home of GParted 
- 
-   http://gparted.sourceforge.net/index.php  
-  
-• Project GParted page  on Sourceforge  
-  https://sourceforge.net/projects/gparted/
- 
-  
-• Wikipedia  GParted page 
-    http://en.wikipedia.org/wiki/GParted
- 
-  
-• Wikipedia  GNU Parted page 
-    http://en.wikipedia.org/wiki/GNU_Parted
- 
-  
-• GParted Forum 
-    http://gparted‐ forum.surf4.info/index.php
- 
-  
-• How to save files and take screenshots  in GParted 
-    http://gparted.sourceforge.net/larry/tips/save_details.htm
- 
-                
- Software  Requirements Specificatio n for GParted  Page 7 
-2. Overall Description 
- 
-2.1 Product Perspective 
- 
-GParted , as already mentioned,  is a program for manipulating  disk partitions.  It is one 
-of the best among  the many of its kind, supporting  more file systems and providing  
-more functions  than  the rest  (Clonezilla,  Parted Magic, Parted (backend  to GParted),  
-Partition Image, Partition Magic for Windows  etc.). It is written  in C++ and is based on 
-the Debian  GNU/Linux  operating  system.  It is a frontend to the GNU Parted application  
-which  was written by the GNU team and supports creating, destroying,  resizing, 
-checking,  and  copying  partitions,  and the file systems on them, but only through 
-command  line. GParted  provides the graphical user interface  for ease of access. Other 
-programs  use the Parted libraries as well, like KDE Partition  Manager and  Pyparted .  
- 
-Because  this is a Linux‐based  application  it relies  on some other software in order for it 
-to work. GParted uses GNU libparted to detect and manipulate  devices and partition 
-tables. This includes but is not limited to: 
-• Parted >= 1.7.1 
-• Gtkmm >= 2.8.x (toolkit  for creating GUIs) 
-• Several  optional file system tools provide  support for file systems  not included 
-in libparted.  
-   
-2.2 Product Features 
- 
-A summary  of product features follows: 
-• Create partition  tables (e.g., msdos, gpt) 
-• Enable and  disable partition  flags (e.g., boot, hidden) 
-• Perform actions with partitions  such as:  
-o create or delete 
-o resize or move (while  preserving  data) 
-o check 
-o label 
-o copy and paste  
-• Supports file systems such as: 
-ext2/ext3/ext4,  FAT16/FAT32,  hfs/hfs+, linux ‐swap, NTFS, reiserfs/4,  ufs, xfs file 
-systems. 
-• Supports hardware  RAID, motherboard  BIOS RAID, and Linux software  RAID. 
- 
- Software  Requirements Specificatio n for GParted  Page 8 
-The following  actions and file systems  are supported  by GParted.  
- File 
-System Detect Read Create Grow Shrink Move Copy Check LabelRequired 
-software
-btrfs
-crypt‐
-luks
-ext2e2fsprog
-s
-ext3e2fsprog
-s
-ext4e2fsprog
-s v1.41+
-fat16dosfstool
-s
-fat32dosfstool
-s
-hfs hfsutils
-hfs+ hfsprogs
-jfs jfsutils
-linux‐
-swapmkswap 
-(part of 
-util‐
-linux)
-lvm2 pv
-ntfs ntfsprogs
-reiser 4reiser4progs
-reiserfsreiserfsprogs
-ufsxfs xfsprogs
-File 
-System Detect Read Create Grow Shrink Move Copy Check LabelRequired software
-For more details on system features please  refer to section 3.  
- 
-2.3 User Classes and Characteristics 
-This application  is intended for use by four user classes: 
- 
-• Casual Users  who may want to partition a hard drive, move or resize their 
-partitions,  clone or delete, etc. Basic understanding  of computers  and disk 
-partitions  is required. Most of the users will use the program in their native 
- Software  Requirements Specificatio n for GParted  Page 9 
-language,  since there is a list the most common ones, during the program 
-startup. 
-• Developers  who are interested  in making the application  better, find and correct 
-bugs and generally  contribute  to the GParted community.  
-• Testers  who use the beta versions  of the product and test  it in many ways for 
-bugs and errors,  then  submit the data to the bug tracking  system. 
-• Documentation  writers who can use this document  to assist them in 
-documenting  the program’s  functions  and  features. This is important,  
-documentation  and help  files are vital to any project’s completeness.   
- 
- 
-2.4 Operating Environment 
-GParted is developed  on x86  based computers  using GNU/Linux.  It can be used  on 
-other operating  systems, such as Windows  or Mac OS X, by booting from media 
-containing  GParted Live. 
-In other words you will need  a Linux operating  system for the install version  of 
-GParted. The Live  version, on which  this document  is based, needs  a basic x86 1computer,  regardless  of the operating  system, with a CD drive  and/or USB port. In 
-general, it does not consume many resources  and almost every computer  will be able 
-to handle it properly.  
-  
-2.5 Design and Implementation Constraints 
-The program does not support every kind  of operation  performed  in every kind  of file 
-system, but it is constantly  being updated and more and more actions and file systems 
-will be supported  in the future. The  table of permitted  actions in supported  file 
-systems  is in section 2.2. 
-GParted does not support logical volume management  (LVM2) at present, although 
-this feature has been requested  by many users and  may be implemented  in a future 
-release. 
-It also must be noted that GParted is not to blame, on most occasions,  if a specific 
-operation  cannot be performed  on a specific file system. It uses a wide  variety of third 
-party libraries and tools which  perform these  operations.  GParted  is simply a frontend,  
-which  brings together all these  underlying  functions  and processes,  and presents them 
-in a graphical  and accessible  way. 
-     
-                                                 
-1 Systems with 32-bit processors 
-2 http://en.wikipedia.org/wiki/Logical_volume_management  
- 
- Software  Requirements Specification for GParted  Page 10 
-2.6 User Documentation 
-Online Documentation:  
- 
-• http://gparted.sourcefor ge.net/documentation.php  
-• http://gparted.sourc eforge.net/docs/help ‐manual/C/gparted.html  
-• http://gparted.sourc eforge.net/docs/man ‐page/C/gparted.8.html  
- 
-Third party Documentation  and  Tutorials:  
- 
-• http://www.dedoimedo.com/computers/gparted.html  
-• http://www.howtogeek.com/howto/windows ‐vista/using ‐gparted‐to‐resize‐
-your‐windows‐vista‐ partition/  
- 
-GParted Forum: 
- 
-• http://gparted‐ forum.surf4.info/index.php  
- 
- 
-2.7 Assumptions and Dependencies 
-GParted requires a working Linux environment  for it to work. The Live  version requires 
-a working  CD/DVD drive for it to boot the computer.  
- 
-As every other Linux application,  there is a list of dependencies,  or a list of packages 
-required  for the program to work. In this occasion,  they are file system tools. On 
-http://packages.debian.org/sid/gparted  there is a comprehensive  list for the 
-depended,  recommended  and suggested packages.  
-           
- 
-           
- Software  Requirements Specification for GParted  Page 11 
-3. System Features 
- 
-3.1 Boot Menu 
-After booting your computer  with GParted Live, this is the first screen you see. 
- 
- 
- 
-  GParted provides some other 
-modes, other than the first 
-default. These include loading to 
-RAM only, safe graphic settings, 
-and  failsafe  mode. You can also 
-boot your computer’s  operating  
-system (if any) and run RAM tests 
-using  Memtest86+.  Selecting the 
-first option, advances  the 
-application  forwards and presents 
-us with the next screen. 
-    
-  
- 3.2 Select Keymap 
-The keymap  is the layout of symbols on your keyboard.  
- 
-     Different keymaps  are 
-supported;  this screen gives 
-info  about them. The default 
-option (don’t touch keymap) 
-is the recommended  one. 
-     
-Software  Requirements Specification for GParted  Page 12 
-3.3 Language Selection Menu 
-Selecting the keymap you want, brings you to the language  selection  menu. 
- 
- 
- 
- 
-A list of a wide  variety of 
-supported  languages  is 
-displayed.  You then enter 
-the  number  that 
-corresponds  to the desired 
-language.  After that, you are 
-presented  with a video 
-mode  p eference  menu. The 
-default value you type  is 0, 
-which oads the GPa ted 
-Live  application.  If X‐window 
-graphical environment  fails 
-to load,  then you can type  1 
-for manual configuration,  or 
-2 for going to command 
-line.  r
-l r
-  
-  
-3.4 GParted Desktop 
-On the desktop you can find all the program’s  functions.  
- 
-      
-From here you can click on 
-exit to quit, take a screenshot  
-of the desktop or a window, 
-open the terminal,  open the 
-main  GParted  window, find 
-some info  about GParted  and 
-its packages,  or launch  the 
-screen resolution  application.  
-    
- Software  Requirements Specification for GParted  Page 13 
-3.5 GParted Main Window 
-From this window you can perform all the actions supported  by GParted.  
- 
-) corre
-y
-pa  There is a menu  bar on the top 
-of the window, with each 
-option (GParted,  Edit, View, 
-Device, Partition sponding 
-to a set of actions ou can 
-perform on a disk. Under that, is 
-a bar which contains the most 
-common functions  of the 
-program, which you can 
-perform on the drive  (hard  disk, 
-USB  flash etc.) selected from 
-the drop down menu  on the far 
-right. Then  a graphical 
-representation  of the selected 
-drive’s  rtitions appears, 
-together with a more detailed 
-list under that. 
- 
- 
-3.6 Refresh Connected Devices 
-From GParted‐>Refresh Devices  you can refresh the 
-list of the connected  devices in the system. This can 
-be useful if, for example, you plug  in a USB  flash 
-drive after GParted has booted. This function 
-enables the recognition  of the drive. 
- 
-      
-3.7 Undo & Apply 
-Every time you perform an operation,  it goes in 
-pending mode. Then, you can undo if you regret 
-your choice,  or go ahead  and click apply for the 
-changes to happen. This can be done from Edit‐
->Undo Last Operation,  Clear All Operations,  
-Apply All Operations.  Clear all removes  every 
-pending operation  from  the list. You can also 
-undo and apply from the respective  buttons on 
-the main functions  bar. 
-  
- Software  Requirements Specification for GParted  Page 14 
-3.8 View Device Information 
-You can view the selected device’s information  by 
-clicking View‐ >Device Information.  This brings up 
-information  about the selected drive on the left side 
-of the GParted main window. Details like the 
-device’s model, size, heads, sectors, cylinders etc. 
-are shown. 
- 
-               
-3.9 Create Partition Table 
- 
-reate 
- Table lets you create 
-the drive’s  partition table3. A 
-arning is displayed  saying 
-at all of your data will be 
-A ty
-                                                 
-Clicking on Device‐>C
-Partition
-w
-th
-erased . So proceed  with 
-caution.    wide  varie of 
-partition tables  are supported  
-and  the default one is ms‐
-dos. 
- 
-         
- 
-3 http://en.wikipedia.org/wiki/Partition_table  
- 
- Software  Requirements Specification for GParted  Page 15 
-3.10 Create a New Partition 
-To create a new partition,  first select the desired  hard disk or other device, from the 
-drop down menu  on the right. Then  you can either click on New from the main 
-functions  bar, or go to Partition‐>New. A pop up dialog window appears on screen. 
- 
-   
-Here you have  various options. First  of all, there  is a slider which shrinks and moves to 
-either side. This represents  the size and position of the partition you will create. You 
-can type  in values by hand,  or just use the slider. Then,  you define the type  of the 
-partition (Primary, Logical, Extended)  and select the desired file system to format the 
-partition.  The list is displayed  in the last screenshot.  You can also leave the partition 
-unformatted  if you wish  to and format it later. If you wish  to label the partition,  
-or  
- 
-                    
-GParted lets you do so in this dialog. Press Add and then Apply  to create the partition.  
- 
-    In this  screenshot  we have selected 
-this part of the disk as the partition 
-we will create.  It is shrunk and  sits 
-on the start of the disk. In the same 
-way, it can be larger or smaller, and 
-sit in the end,   anywhere  else on 
-e disk.
- th
- 
-  
-Software  Requirements Specification for GParted  Page 16 
-3.11 Delete a Partition 
- take effect, or Undo if you changed your mind. 
- 
-artition 
- 
- 
-A dialog window appears, 
-with the same slider as in the 
- the numbers in Megabytes  
-irectly. In this screenshot,  it 
-ppears that the partition 
-ans the whole drive; we 
- 
-3.13 Copy Partition 
-Select  the partition you would like to copy. This is pa cloning, useful if, for 
-example, you migrate to a larger hard drive  and wish to eep your data and operating  
-system (without reformatting).  Click on Copy from the  functions  bar or go to 
-Partition‐>Copy. The  selected partition  is then copied to the clipboard.  
- 
- partition being 
-opied,  or you can only slide it upSelect  the partition you want to delete. Then  press  Delete on the main  functions  bar or 
-go to Partition‐>Delete. There is no dialog, or warning for this  action. Of course you 
-have to press Apply for the changes to
-3.12 Resize or Move a P
-Select  the partition you want to resize or move. Then  click on Resize/Move  from the 
-main functions  bar or go to Partition‐>Resize/Move.   
-  
-create partition window. You 
-use it in the same way or type 
-in
-d
-a
-sp
-want to shrink it and free up 
-the disk space after it, which 
-will then  become unallocated  
-space. Press Resize/Move  and 
-then  Apply . 
- 
-   
-rtition 
-k
- main
-3.14 Paste Partition 
-With this action you can paste the copied partition to unallocated  space of the same 
-drive, another drive  in its entirety, or to unallocated  space of another drive. Select  the 
-whole drive or partition of a drive and then press  Paste on the main functions  bar or go 
-to Partition‐>Paste. A dialog window opens. As with Resize/Move,  there  is a slider. You 
-can leave it at the default setting, which  the exact same size of the
-c  for the pasted  partition to take up more (free) space 
- Software  Requirements Specification for GParted  Page 17 
-than  the copied one
-be at the start of the. You can also move around the pasted  partition,  it doesn’t have to 
- unallocated  space.  
-efaults at the size of the 
-artition to copy,  but you can 
-ange that if you want. 
- 
-PORTANT: 
-      Here you see the slider which 
-d
-p
-ch    
- 
-     
- 
-   
-IM
- You can paste 
-ver an  existing  partition 
-hether  it’s formatted  or 
-nformatted).  A warning is 
-own that you will lose  all of 
-at partition’s  data. So paste 
-ith caution. Press  Paste and 
-en Apply . 
- 
-3.15 Format Partition 
-After you have  created a partition  (regardless  of formatting  it or not) you can format it 
-to the file system you like. First, select the partition you    to format. Then, click on 
-Partition‐>Format to. A list of the supported  file systems  Click on the desired 
-one and then  click on Apply . o(wush
-thw
-th
-         
-want
- appears.
- Software  Requirements Specification for GParted  Page 18 
- 
- 
- 
-                      
-3.16 Unmount Partition 
-If you have mounted a partition to a specific mount point, you can unmount  it by 
-clicking on Partition‐>Unmount.  Please refer to 3.21  for an online guide  on mounting  
-partitions  in GParted.  
- 
-.17 Manage Flags 
-Selecting a partition and  then 
-clicking on Partition‐>Manage 
-Flags, brings up a dialog window 
-with flags and  checkboxes.  These 
-are functions  supported  by the 
-partition,  like if the partition is 
-bootable,  if it is hidden etc.  You 
-can change those  here.  Bear in 
-mind that some functions  are not 
-supported  by some partitions.  
- 
-    
- 
-3
-  
-Software  Requirements Specification for GParted  Page 19 
-3.18 Check and Repair File System 
-Selecting a partition and then  clicking  on Partition‐>Check, sends in pending mode  the 
-check and repair partition errors operation.  Click on Apply  to have the partition’s  file 
-system analyzed, checked  for errors and  repaired  if errors are found.  
-.19 Label Partition 
-and  then 
-el, opens a 
- want to do it 
-then, you can label your partition 
-You  cannot label 
-ecause some file 
-systems don’t  support labeling. 
- 
-3.20 top or an Active Window 
-Clicking on Screenshot  on the desktop, opens a 
-dialog window which informs you that after 
-clicking Yes, a cross‐ pointer appears and you 
-select the window you want to print‐screen. 
- 
-When  the cross‐ hair appears, you can click on 
-any active window to take its screenshot,  or click 
-somewhere  in the desktop’s  wallpaper  for a 
-general desktop screenshot.  
- 
- 
-A preview of the screenshot  is displayed,  
-pp   u that 
-d as 
-saving 
-o 3.21.   
-3
-Selecting a partition 
-clicking on Partition‐>Lab
-dialog window asking to name your 
-partition.  You could also do that 
-when  creating the partition,  but if 
-you missed it or didn’t
-from this option. 
-every partition,  b
- 
-   
- 
- 
- Take a Screenshot of the De sk
- 
-   
- 
-and  a po‐u message informs yo
-your screenshot  has been save
-gparted.jpeg  under /root. For 
-screenshots  to a device, please  refer t
- Software  Requirements Specification for GParted  Page 20 
-3.21
-Apart from the main  GParted window, you can also launch a command  line utility  by 
-clicking on Terminal . 
- 
- This is useful for more 
-advanced  operations,  or 
-if some operations  
-cannot be performed  in 
-shell is bash. For example, 
-you can mount a partition 
-to a mount point in the 
-system. This can be done 
-only through Terminal.  It 
-is also used for copying 
-your saved screenshots  
-from the system’s  virtual 
-drive to a hard disk or 
-USB  flash drive. There is a 
-comprehensive  guide on 
-how to do this online:  http://gparted.sourceforge.net/larry/tips/save_details.htm Terminal & Mount Partitions and Save Screenshots to a Device 
- 
-the  main  GParted 
-window. The supported  
- 
- 
- 
- Information 
-which you  can select the List of packages  
-ns Terminal and presents you with a list 
-d. You quit by pressing  q. The second 
- shows you some  things you should 
-Windows  XP and Windows  Vista partitions.  You quit by 
- 
- 
-          3.22
-Clicking on  Info brings  up a dialog window, on 
-or Windows  Information . The first option ope
-of packages and  libraries  installed in GParte
-option opens resize‐windows.txt  in Terminal,  which
-be careful  of when  resizing 
-pressing q . 
-    
-  
- Software  Requirements Specification for GParted  Page 21 
-3.23
-or resolution  options. Here 
-you can select  the resolution  that best fits your monitor. You can also rotate your view, 
-change layout if you have multiple  monitors  etc. 
- 
-          
-.24 Date and Time 
-Date and  time is displayed  on the desktop’s  taskbar. These settings  are read from the 
-s BIOS.  
-               Screen Resolution Changer 
-Clicking on Screen resolution  brings up a window with monit
-  
- 
-         
-3
-computer’
- 
- Software  Requirements Specification for GParted  Page 22 
-4. External Interface Requirements 
-.1 User Interfaces 
-• Main  Menu 
- 
-This is the first screen of the program  that the user sees, and the part where  most 
-of the operations  take place. 
-          
- 
-       
-On the top,  there is the menu  bar with each option (GParted,  Edit,  View,  Device, 
-Partition)  corresponding  to a set of actions you can perform on a disk. Under 
-that, is a bar which contains the most common  functions  of the program.  
- 
-Then  the selected  drive’s partitions  are presented  in both graphical and detailed 
-mode.  
- 
-   4
-      
- 
-   
- 
- 
- Software  Requirements Specification for GParted  Page 23 
-• Cancel and  Apply 
- 
-Every time you try to edit in any way, any partition,  a confirmation  dialog appears 
- the potential  of data loss. You can either click Cancel or  Apply . 
- 
-          
- 
- 
-• Pasting into an existing  partition  
-You can copy a partition,  and then paste it on another existing  one, whether it is 
-formatted  or not. This of course leads to loss of data. If that’s  fine, click OK on the 
-warning window that is being displayed.  
-• Quitting GParted 
- 
- 
- 
-   which warns  about
- 
- 
- 
- 
- 
-         
- 
-You can exit GParted at any time you wish,  by clicking  on Exit on the upper left 
-corner of the desktop. You can select Reboot, Shutdown,  or Logout . Make your 
-choice and click OK. 
- 
-      
- Software  Requirements Specification for GParted  Page 24 
-4.2 Hardware Interfaces 
-For t
-can b
-resource hungry program, it will run on most systems  without a problem. A CD/DVD 
-drive is necessary  for the application  to boot, or at least one USB port if  you plan to use 
-the USB  version of GParted Live. Lastly, a functional  standard keyboard  and  mouse is 
-required. 
- 
-Supported  device types: 
-• Hard disks  
-• USB Flash drives  
-• External hard drives (USB  – eSATA enclosures  etc.)  
-• IDE, SATA, RAID controllers  and attached devices  
-4.3
-As it 
-any 
-librar ages  are already pre‐included in the .iso 
-image  file you downloaded  from GParted’s  website. Please refer to 2.7 for more details 
-on that matter. 
-Before booting with GParted Live,  you have to download  the image file and then  burn 
-it to a cd. So, you need a cd/dvd  burning  suite compatible  with your operating  system. 
- 
- 
-.4 Communications Interfaces 
-Although network or Internet communication  is not obvious,  it is available.  You can 
-configure  your network adapter to work with GParted  by typing  in the Terminal:  
- use the ifconfig and route commands.  Please remember  to 
- This enables you to update and add  new packages 
-to GP
-comm
- 
-            he GParted Live to run, you will need  a PC (regardless  of its operating  system, it 
-e Windows  or Linux) or Mac, with or without an operating  system.  Since it is not a 
- 
- 
- Software Interfaces 
-has already been stated, GParted Live runs on every system, so it doesn’t need 
-specific software from the user’s  side. However,  GParted depends on some 
-ies and tools for its function. These pack
-4
-dhclient eth0 . You can also
-edit /etc/resolve.conf  accordingly.
-arted. apt‐get update  and apt‐get install <package  name>  are the corresponding  
-ands.  
- Software  Requirements Specification for GParted  Page 25 
- nal Requirements 
-5.1 
-e a powerful processor  or graphics card, much RAM, or disk space, for both 
-e install and Live  version, and the program loads and runs fairly quick. The only real 
- drive  or a USB port  that is working properly. 
-As it is stated with many warnings in the program,  data loss is a serious possibility,  if 
-kup your data and/or use the program with extreme  caution. It 
-u deal with partition changes, you could lose  all your data by 
-human  or application  error. GParted comes with absolute  no warranty and cannot be 
- 
- 
-5.3 
- 
-ithin an operating  system.  Every user has administrator  rights and full access which 
-re given from the  start of the program,  as you are logged in as root . 
-5.4 
-lity is guaranteed  since this  program runs  on both  Mac and PC (Linux, 
-indows or other operating  system).  
- 
- 
-5.5 ts 
-aken from the website’s  disclaimer:  
-Parted is free software.  
-ou have the freedom to run, copy,  distribute,  study, change, and improve GParted. 
-ou do not have to pay money to  use GParted. 
-Parted is distributed  under the GNU General Public License5. Other Nonfunctio
-Performance Requirements 
-As it has already been  mentioned,  GParted is not a resource hog and will run on almost 
-every computer.  Its functions  and features are not computationally  intensive.  It does 
-not requir
-th
-requirement  is a CD/DVD
- 
- 
-5.2 Safety Requirements 
-you are not careful, bac
-is obvious that when  yo
-made responsible  for any loss of data.  
-Security Requirements 
-Parted Live does not deal with any security or privacy issues, as it does not run from G
-w
-a
-  
-Software Quality Attributes 
-The  application  provides a quite friendly user interface  with its operations  accessible  
-from the menu bar  and the main  toolbar. An average or casual user should not find any 
-problem using the program to perform at least its main functions.  
-nteroperabiI
-W
-Other Requiremen
-T
- GY
-Y
-G
- version 2 or (at your 
-option) any later version.  
+Software Requirements Specication for Mashbot
+George D'Andrea Andrew Gall Josiah Kiehl Cody Ray Vito Salerno
+February 15, 2010
+1Revision History
+Name Date Reason for Changes Version
+George D'Andrea, Andrew Gall,
+Josiah Kiehl, Cody Ray, Vito
+Salerno16 February 2010 Revised from Reviews 1.1
+George D'Andrea, Andrew Gall,
+Josiah Kiehl, Cody Ray, Vito
+Salerno24 November 2009 Initial Version 1.0
+1Contents
+1 Introduction 3
+1.1 Purpose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+1.2 Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+1.3 Glossary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+1.4 Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2 Overall Description 3
+2.1 Product Perspective . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2.1.1 System Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2.1.2 User Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2.1.3 Hardware Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2.1.4 Software Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.1.5 Communications Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.1.6 Memory Constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.2 Product Functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.3 User Characteristics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.4 Requirements Apportioning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3 Specic Requirements 6
+3.1 External Interface Requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.1.1 Email System . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.2 Functional Requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.2.1 User Accounts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.2.2 Marketing Campaigns . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+3.2.3 External Service Accounts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.3 Security Requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+4 User Interface 8
+4.1 Dashboard . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4.1.1 Create . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4.1.2 Schedule . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4.1.3 Explore . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+5 Preliminary Analysis 13
+6 Use Cases 13
+21 Introduction
+1.1 Purpose
+This document is the general overview of the software requirements for the Mashbot project. These require-
+ments are directly related to the functionality, performances, constraints, attributes, and interfaces of the
+system.
+Mashbot is a web service for managing a company's presence on social networks. One goal of Mashbot
+is to unify the interfaces of a multitude of social networks, allowing users to learn a standardized interface
+and more easily cope with the ood of new social network platforms. A second goal is to allow for a hands
+o approach to social network marketing by allowing the scheduling of campaign events to be distributed to
+social networks.
+1.2 Scope
+This document contains the criteria by which the initial Mashbot release will be judged. It is written for the
+developers, testers, and end-users of Mashbot.
+1.3 Glossary
+Campaign A collection of content that is scheduled to be published
+External Service Account An account on a social networking platform outside of Mashbot
+1.4 Overview
+Marketing, customer service, business overhead and development eorts compete for resources in many
+startups and small businesses. Furthermore, early stage startups often have small or non-existent marketing
+budgets, especially in resource-hungry product-based startups. Although the plethora of widely available
+and aordable communications technology (e.g., social media, VoIP, streaming video, etc.) theoretically
+reduces both capital and operating expenditures related to marketing, the quantity of such technologies and
+services eectively creates an "opportunity overload" which makes the process of maintaining a focused and
+eective marketing campaign more dicult. Furthermore, with the number of services, technologies, and
+"specialists" arriving each day, it is nearly impossible to keep up with all the trends, much less fully take
+advantage of each one, or even monitor them all adequately. The widespread adoption of communications
+technology is a double-edged sword; there are many more avenues for marketing and customer service, but
+it is much more dicult to eectively apply reputation management strategies or adequate customer service
+through all channels. This project proposes to build a tool to increase the eectiveness and eciency of
+marketing campaigns and customer service for small to medium businesses.
+2 Overall Description
+2.1 Product Perspective
+The initial focus will be on scheduled marketing campaigns utilizing social media. However, this may expand
+to include customer service functionality, management of more traditional campaigns such as direct mail,
+trade shows and other events, or user-created campaign classes.
+The rst objective is to develop and release a small open source platform to provide a service agnostic
+facade API bundling common operations in widely used services (e.g., Facebook, Flickr, Twitter, Wordpress,
+or YouTube). This platform will provide a plugin-based architecture for abstracting myriad services behind a
+single facade, based upon content types provided in common data models. This sub-project will not only be
+useful to the open source community but will also devalue much of the competition whose prime added value
+3comes from providing such a service. Furthermore, it opens the opportunity for the public to help maintain
+existing service plugins as well as contribute plugins for new services. Finally, it leads to the inclusion of both
+a dual licensing revenue model and a niche software development service-based revenue model for custom
+extensions and applications built upon this core, which is proven to be more sustainable over time.
+The rst application of this core platform will be the campaign manager referenced above. While the
+exact feature set is to be determined during the design process, expected features include a portal to existing
+services where messages can be "pushed", or broadcast, through existing service channels. This portal will
+also allow for the collection of responses from customers, fans, critics, and other audiences from these same
+channels. Users will be able to view social networking messages directed at them, as well as perform data
+mining tasks on the social networks to provide more intelligent heuristics regarding brands' strength amongst
+particular markets. They will also be allowed to schedule campaign events at certain times. For example,
+users will be able to prepare a press release far in advance of its distribution, or queue a number of updates
+to be spread out over a certain time period.
+2.1.1 System Interfaces
+Mashbot combines several components to provide required functionality.
+Authentication Mashbot will allow the use of external authentication modules for user login. Mashbot
+will also provide an internal authentication mechanism in case an external module is unavailable.
+Campaign Manager Web Client Mashbot has an interface for a web client which processes user
+commands to interact with campaigns.
+Publishing and Aggregation Platform Mashbot has an interface for publishing content to social
+networks, as well as for aggregating social network data.
+Database Mashbot has an interface to a database which allows for the storage and retrieval of data
+related to accounts and campaigns.
+2.1.2 User Interface
+The user interface consists of a web front end with tabs to separate the various workow areas. To create
+content, the user is provided with a calendar scheduling tool and a content editor. Additionally, there is
+a monitoring dashboard which gives the user a view on responses to the content in any given campaign.
+Finally, there is an explore view that gives the user a portal with which they can keep tabs on topics of
+interest in social media.
+2.1.3 Hardware Interfaces
+The Mashbot web client runs on any computer hardware meeting the following criteria:
+Capable of connecting to the Internet
+Capable of running a modern HTTP 1.1 web browser
+Includes a keyboard and a pointing device
+Includes writable volatile storage
+The Mashbot server runs on any computer hardware meeting the following criteria:
+Capable of connecting to the Internet as a server.
+Capable of interfacing with modern database software.
+Capable of running a modern suite of networking software.
+42.1.4 Software Interfaces
+The Mashbot software integrates some external software to provide functionality.
+Authentication Mashbot authenticates users against it's internal user database.
+Campaign Manager Web Client Mashbot interfaces with the users web browser and expects that
+it is capable of HTTP 1.1 and HTML 4.0.
+Database Mashbot software interfaces with an existing database software.
+Publishing and Aggregation Platform
+Server The Mashbot server runs on an operating system that supports serving dynamic web pages
+using encryption and is capable of communicating with the Internet.
+2.1.5 Communications Interfaces
+Communication between the web client and the server software is facilitated by common network protocols.
+This allows compatibility with the majority of our user's machines. Data will be encrypted using TLS and
+HTTP/1.1. The use of these protocols requires the ability for the systems to communicate using TCP/IP
+network stacks. The Mashbot system sends emails using SMTP.
+2.1.6 Memory Constraints
+The Mashbot server requires no greater than 1 gigabyte of RAM memory. The web client requires no more
+than the minimum memory a modern desktop computer commonly has, approximately 256 megabytes of
+RAM.
+2.2 Product Functions
+Mashbot should be able to:
+1. Schedule content for various services to be published concurrently
+2. View and Compare historical metrics of campaigns
+3. View/Create replies to content
+4. Maintain users and approvers of content
+5. Set up keyword alerts for \watched" services
+2.3 User Characteristics
+The target user is a small to medium business employee who understands the basic capabilities of social
+media.
+52.4 Requirements Apportioning
+Priority Description
+1 Mashbot can not be released unless it satises these requirements.
+2 Mashbot may be initially released without satisfying these require-
+ments. Having these requirements unfullled must not create dan-
+gers to the system. They should be implemented in the next minor
+release.
+3 These requirements are not expected to be fullled by the initial
+release of Mashbot, but should be implemented in the next major
+release.
+4 These requirements are outside the current scope of the project,
+but are included to exhibit how our software will improve in the
+future.
+3 Specic Requirements
+3.1 External Interface Requirements
+3.1.1 Email System
+0100 Purpose The external email system is to provide a messaging service from Mashbot to the Mashbot
+users. Priority 2
+0110 Input The input is generated automatically by the Mashbot system using settings congurable by
+the System Administrator. Priority 2
+0120 Output The output is in the form of an e-mail to an e-mail account, but it does not return any sort
+of message to Mashbot. Priority 2
+0130 Data Format The format uses SMTP protocol. The actual messages are provided by Mashbot.
+Priority 2
+3.2 Functional Requirements
+3.2.1 User Accounts
+0140 User Account Types and Permissions The system categorizes users on the basis of roles and
+privileges. Within these roles, the system also categorizes users based on the roles that they have
+within individual products. These are referred to as user account roles.
+Mashbot Campaigns supports the following account roles:
+0150 Contributor Priority 3
+0160 Approver Priority 3
+0170 Publisher Priority 3
+0180 A user may possess more than one role. Priority 3
+0190 Roles reect actions that can be performed by a user. Priority 3
+0200 Roles can be assigned to a user account for individual products. Priority 3
+0210 Contributors may create new content, import existing content into the system, edit content,
+and delete it. They may also submit these actions for approval. Priority 3
+0220 Approvers can approve actions performed by contributors Priority 3
+60230 Publishers may schedule or immediately initiate actions put forth by contributors and those
+approved by approvers. Priority 4
+0240 User Account Creation - New user accounts can be created. Priority 1
+0250 The system may contain any number of user accounts. Priority 1
+0260 Certain pieces of information are required to create new accounts. Priority 1
+The following information is required for any new user account:
+0270 Username Priority 1
+0280 Password Priority 1
+0290 Name Priority 1
+0300 Email Address Priority 1
+0310 Group Membership Priority 1
+0320 User Account Type Priority 1
+0330 User Account Modication The system allows users to modify their accounts once created. Pri-
+ority 1
+0340 The system requires that a user have logged in before modications can be made. Priority 1
+The following user account information is modiable by all user types:
+0350 Password Priority 1
+0360 Email Address Priority 1
+0370 Name Priority 1
+0380 User Account Deactivation The system allows user accounts to be deactivated. Priority 3
+0390 The system denies user who have been deactivated from accessing the system. Priority 3
+0400 If an account has any history associated with it, it can only be deactivated and not deleted.
+Priority 3
+0410 If an account has no history associated with it, it can be deleted from the system. Priority 3
+0420 A disable account can be undisabled Priority 3
+0430 It is possible to disable all accounts except for the System Administrator account. Priority 4
+0440 Username and Passwords
+0450 The system gives users the ability to reset their password. Priority 2
+0460 Individual passwords can be reset. Priority 2
+0470 The system only allows users to change their own passwords. Priority 2
+3.2.2 Marketing Campaigns
+0480 A campaign has the following components:
+0490 Name Priority 1
+0500 Pieces of content Priority 1
+0510 Schedule Priority 1
+0520 User/Group Permissions Priority 2
+70530 A schedule is a mapping of times to publishing actions. It may contain any actions a publisher can
+perform, and these actions are performed at the associated time. Priority 1
+0540 A piece of content may take the following forms:
+0550 TextPriority 1
+0560 Image Priority 1
+0570 Audio Priority 3
+0580 Video Priority 3
+3.2.3 External Service Accounts
+0590 Mashbot will allow for the association of Mashbot accounts with external service accounts.
+0600 Mashbot will provide an interface for authenticating a user account to an external service account
+Priority 1
+0610 Mashbot will provide a standardized method of interacting with external service accounts Priority 1
+3.3 Security Requirements
+0620 The system encrypts data over a direct connection between the web client and the server. Priority 1
+0630 The system allows for the backup of the data system to local or remote non-volatile storage systems.
+Incremental backups should not create outages and full backups do not interfere with user interaction
+for more than 10 minutes. Priority 1
+0640 The system is congurable to e-mail warnings about multiple failed login attempts from the same
+user. These warnings are sent to the System Administrator. Other security risks of this type are the
+responsibility of the System Administrator. Priority 3
+0650 The system allows only valid users to log into the system. A valid user is one which has not been
+disabled or deleted and exists on the system. Priority 1
+0660 To log onto the system, a user provides their valid username and password. Priority 1
+0670 The system uses the congured authentication module. The authentication method is congurable by
+the System Administrator. Priority 1
+0680 The system allows the System Administrator to congure a timeout after which a user is automatically
+logged out of Mashbot. Priority 1
+4 User Interface
+The user interface will consist of a tabbed navigation bar that unies the sitewide navigation, as well as
+module specic navigation as needed. Tabs:
+Dashboard
+Create
+Schedule
+Explore
+84.1 Dashboard
+The dashboard consists of graphs and charts to give the user a quick view on how their campaigns are
+performing. Metrics include:
+Clickthrough rate
+Page Views
+Number of Comments
+Service plugins can dene additional specialized metrics to track, as well, for instance \retweets" for Twitter.
+A panel is available to give more information on each metric as it is selected. See Fig 1
+4.1.1 Create
+This view allows users to create campaigns and ll them with content. This view is also used when users
+need to edit an existing campaign. See Fig 2
+Add content A user can add content via the add content button near the top of the view. This will
+prompt the user to select the content type, which is populated by the services the user currently has access
+to via credentials stored in the system. This will create a section in the main part of the view that allows
+the user to add individual elements of that content type, each individually scheduled. Each row line item
+will allow the user to schedule, edit, or delete that content type.
+4.1.2 Schedule
+Scheduling content Users can drag items from the left hand bucket of content to the calendar to schedule
+content. The content will receive a default golive time of 12am on the day the content is dragged to. If the
+user desires a dierent time, he may click the content in the schedule and assign the proper time. See Fig 3
+Calendar The calendar allows the user to manage when content goes live, and gives a visual representation
+of the actions taken on content. It is clear when content goes live and when (if) it is deleted. The user can
+page from month to month to schedule content to any day desired.
+4.1.3 Explore
+This view allows users to get a pulse on what information social media contains. This includes the ability
+to set up monitored searches for services that support keyword search via api. This also will aggregate data
+gathered from comments on content that has been published as part of a given campaign
+9Figure 1: The dashboard interface
+10Figure 2: The content creation interface
+11Figure 3: The scheduling interface
+12Figure 4: The Data Flow
+5 Preliminary Analysis
+Mashbot is a data driven web application. It aggregates data from various web services. This gure shows
+the ow of data through the web application. There is a core that handles all requests for various data
+needed by the application. Authentication information is retrieved from the database and used to request
+content from services.
+6 Use Cases
+1. A user should be able to register a new account
+2. A user should be able to log in
+3. A member should be able to log out
+4. A member should have a prole
+5. A member should be able to modify their prole
+6. A user's email should be veried when registering a new account.
+7. An admin should be able to modify accounts
+8. An admin should be able to suspend accounts
+9. An admin should be able to delete accounts
+10. A member should be able to monitor trending topics regarding their campaign
+11. A member should be able to monitor facebook groups related to campaigns
+12. A member should be able to view @replies to tweets related to their campaigns
+13. A member should be able to see responses to blog posts related to the campaign.
+14. An admin should be able to perform user account actions in bulk
+15. An admin should be able to see all campaigns
+16. An admin should be able to delete any campaign
+1317. An admin should be able to edit all campaigns
+18. Mashbot campaigns! campaigns should allow multiple users to collaborate on a campaign
+19. Mashbot campaigns! should support multiple users
+20. A member should be able to store authentication for supported services
+21. A member should be able to add additional services to an existing campaign
+22. A member should be able to delete individual campaign elements
+23. Members should have hierarchical permissions
+24. A campaign should have workow approval process
+25. A member should be able to "unpublish" a campaign
+26. A member should be able to delete a campaign
+27. A member should be able to schedule events in bulk
+28. A member should be able to schedule "live dates" for individual events.
+29. A member should be able to delete existing content from supported services
+30. A member should be able to see the content they have published in all supported services
+31. A member should be able to push to Facebook in a campaign
+32. A member should be able to post to a blog in a campaign
+33. A member should be able to post to Twitter in a campaign
+34. A member should be able to create a new campaign
+35. A member should get notied when activity occurs in a campaign they're working on
+14

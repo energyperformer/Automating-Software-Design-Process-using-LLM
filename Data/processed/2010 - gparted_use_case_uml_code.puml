@@ -4,28 +4,30 @@ actor Developer
 actor Tester
 actor DocumentationWriter
 
-usecase "Boot GParted" as UC1
+usecase "Boot Menu" as UC1
 usecase "Select Keymap" as UC2
-usecase "Select Language" as UC3
-usecase "Refresh Connected Devices" as UC4
-usecase "Undo & Apply Operations" as UC5
-usecase "View Device Information" as UC6
-usecase "Create Partition Table" as UC7
-usecase "Create a New Partition" as UC8
-usecase "Delete a Partition" as UC9
-usecase "Resize or Move a Partition" as UC10
-usecase "Copy Partition" as UC11
-usecase "Paste Partition" as UC12
-usecase "Format Partition" as UC13
-usecase "Unmount Partition" as UC14
-usecase "Manage Flags" as UC15
-usecase "Check and Repair File System" as UC16
-usecase "Label Partition" as UC17
-usecase "Take a Screenshot" as UC18
-usecase "Access Terminal" as UC19
-usecase "View Information" as UC20
-usecase "Change Screen Resolution" as UC21
-usecase "Modify Date and Time" as UC22
+usecase "Language Selection Menu" as UC3
+usecase "GParted Desktop" as UC4
+usecase "GParted Main Window" as UC5
+usecase "Refresh Connected Devices" as UC6
+usecase "Undo & Apply" as UC7
+usecase "View Device Information" as UC8
+usecase "Create Partition Table" as UC9
+usecase "Create a New Partition" as UC10
+usecase "Delete a Partition" as UC11
+usecase "Resize or Move a Partition" as UC12
+usecase "Copy Partition" as UC13
+usecase "Paste Partition" as UC14
+usecase "Format Partition" as UC15
+usecase "Unmount Partition" as UC16
+usecase "Manage Flags" as UC17
+usecase "Check and Repair File System" as UC18
+usecase "Label Partition" as UC19
+usecase "Take a Screenshot" as UC20
+usecase "Terminal & Mount Partitions" as UC21
+usecase "Information" as UC22
+usecase "Screen Resolution Changer" as UC23
+usecase "Date and Time" as UC24
 
 CasualUser --> UC1
 CasualUser --> UC2
@@ -49,13 +51,34 @@ CasualUser --> UC19
 CasualUser --> UC20
 CasualUser --> UC21
 CasualUser --> UC22
-
-Developer --> UC1
-Developer --> UC19
+CasualUser --> UC23
+CasualUser --> UC24
 
 Tester --> UC1
+Tester --> UC2
+Tester --> UC3
+Tester --> UC4
+Tester --> UC5
+Tester --> UC6
+Tester --> UC7
+Tester --> UC8
+Tester --> UC9
+Tester --> UC10
+Tester --> UC11
+Tester --> UC12
+Tester --> UC13
+Tester --> UC14
+Tester --> UC15
+Tester --> UC16
+Tester --> UC17
+Tester --> UC18
 Tester --> UC19
+Tester --> UC20
+Tester --> UC21
+Tester --> UC22
+Tester --> UC23
+Tester --> UC24
 
-DocumentationWriter --> UC1
-DocumentationWriter --> UC20
+DocumentationWriter --> UC22
+
 @enduml

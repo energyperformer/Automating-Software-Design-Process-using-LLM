@@ -1,0 +1,48 @@
+@startuml
+
+actor User as "1. User"
+actor Admin as "2. Admin"
+actor ProjectTeam as "3. Project Team"
+actor ProjectStakeholders as "4. Project Stakeholders"
+actor TechnicalOwnerLead as "5. Technical Owner/Lead"
+actor QAQCTeam as "6. QA/QC Team"
+actor DevelopmentTeam as "7. Development Team"
+actor TechnicalWriter as "8. Technical Writer"
+actor BusinessSystemsAnalyst as "9. Business Systems Analyst"
+
+usecase NavigateThroughSystem as "1. Navigate through the system"
+usecase CreateAddUser as "2. Create/Add User"
+usecase DemonstrateMockupsUIChanges as "3. Demonstrate mockups of UI changes"
+usecase AdjustUserInterfaces as "4. Adjust user interfaces"
+usecase ScheduleUpdatesProdEnvironment as "5. Schedule updates to production environment"
+usecase PerformTestingNewFunctionality as "6. Perform testing against new functionality"
+usecase ConductUAT as "7. Conduct User Acceptance Testing (UAT)"
+usecase LogErrorsWarnings as "8. Log errors, warnings, and informational messages"
+usecase SendNotificationEmailError as "9. Send notification email on error"
+
+User --> NavigateThroughSystem
+User --> LogErrorsWarnings
+User --> SendNotificationEmailError
+
+Admin --> CreateAddUser
+
+ProjectTeam --> DemonstrateMockupsUIChanges
+ProjectTeam --> AdjustUserInterfaces
+ProjectTeam --> ScheduleUpdatesProdEnvironment
+ProjectTeam --> PerformTestingNewFunctionality
+ProjectTeam --> ConductUAT
+
+ProjectStakeholders --> DemonstrateMockupsUIChanges
+ProjectStakeholders --> AdjustUserInterfaces
+
+TechnicalOwnerLead --> ScheduleUpdatesProdEnvironment
+
+QAQCTeam --> PerformTestingNewFunctionality
+
+DevelopmentTeam --> PerformTestingNewFunctionality
+
+TechnicalWriter --> ConductUAT
+
+BusinessSystemsAnalyst --> ConductUAT
+
+@enduml
