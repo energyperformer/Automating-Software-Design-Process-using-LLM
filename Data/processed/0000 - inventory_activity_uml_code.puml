@@ -1,0 +1,113 @@
+@startuml
+start
+
+:Authentication;
+
+if (User is authenticated?) then (yes)
+    :Transferring Assets;
+    if (Inter-departmental, Inter-faculty, or Transfer outside university?) then (yes)
+        :Approving Requests;
+    else (no)
+        :Editing Assets;
+    endif
+
+    :Modifying Assets;
+    :Transferring Assets;
+
+    :Adding Inventory Assets;
+    :Transferring Assets;
+
+    :Creating Request to Borrow an Asset or Reserve a Space;
+    :Approving Requests;
+
+    :Returning Assets;
+    :Transferring Assets;
+
+    :Creating a New Space;
+    :Adding Inventory Assets;
+
+    :Approving Requests;
+    if (Assets need to be transferred?) then (yes)
+        :Transferring Assets;
+    else (no)
+        :Returning Assets;
+    endif
+
+    :Changing Permissions;
+    if (User can perform Transferring Assets?) then (yes)
+        :Transferring Assets;
+    endif
+    if (User can perform Editing Assets?) then (yes)
+        :Editing Assets;
+    endif
+    if (User can perform Modifying Assets?) then (yes)
+        :Modifying Assets;
+    endif
+    if (User can perform Adding Inventory Assets?) then (yes)
+        :Adding Inventory Assets;
+    endif
+    if (User can perform Creating Request to Borrow an Asset or Reserve a Space?) then (yes)
+        :Creating Request to Borrow an Asset or Reserve a Space;
+    endif
+    if (User can perform Returning Assets?) then (yes)
+        :Returning Assets;
+    endif
+    if (User can perform Creating a New Space?) then (yes)
+        :Creating a New Space;
+    endif
+    if (User can perform Approving Requests?) then (yes)
+        :Approving Requests;
+    endif
+    if (User can perform Output Reports?) then (yes)
+        :Output Reports;
+    endif
+    if (User can perform Searching?) then (yes)
+        :Searching;
+    endif
+    if (User can perform Creating Reports?) then (yes)
+        :Creating Reports;
+    endif
+
+    :Searching;
+    if (User may find assets to transfer?) then (yes)
+        :Transferring Assets;
+    endif
+    if (User may find assets to edit?) then (yes)
+        :Editing Assets;
+    endif
+    if (User may find assets to modify?) then (yes)
+        :Modifying Assets;
+    endif
+    if (User may find locations to add inventory assets?) then (yes)
+        :Adding Inventory Assets;
+    endif
+    if (User may find assets to request?) then (yes)
+        :Creating Request to Borrow an Asset or Reserve a Space;
+    endif
+    if (User may find assets to return?) then (yes)
+        :Returning Assets;
+    endif
+    if (User may find locations to create a new space?) then (yes)
+        :Creating a New Space;
+    endif
+    if (User may find requests to approve?) then (yes)
+        :Approving Requests;
+    endif
+    if (User may find data for reports?) then (yes)
+        :Output Reports;
+    endif
+    if (User may find data for creating reports?) then (yes)
+        :Creating Reports;
+    endif
+
+    :Output Reports;
+    :Searching;
+
+    :Creating Reports;
+    :Searching;
+else (no)
+    stop
+endif
+
+stop
+@enduml

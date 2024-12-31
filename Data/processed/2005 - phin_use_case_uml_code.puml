@@ -1,0 +1,106 @@
+@startuml
+
+actor Investigator
+actor Public_Health_Personnel
+actor Laboratory_Personnel
+actor Emergency_Response_Team_Member
+actor Jurisdiction_Reporting_Personnel
+actor Jurisdiction_Investigating_Personnel
+actor Patient_Subject
+actor Organization
+actor Animal_Owner
+actor Shipping_Company_Driver
+actor Emergency_Management_Organization
+actor FEMA
+actor Hazmat_Teams
+actor Public_Works_Facilities
+actor Intelligence_Organizations
+actor Media
+actor Public
+actor Specimen_Sample_Collector
+actor Treatment_Prophylaxis_Administrator
+actor Adverse_Event_Reporter
+actor System_Administrator_IT_Personnel
+
+usecase "Investigate Health Event" as UC1
+usecase "Capture and Store Entity Data" as UC2
+usecase "Collect and Manage Travel History and Conveyance Data" as UC3
+usecase "Manage Case Investigation and Exposure Contact Data" as UC4
+usecase "Monitor and Follow-Up" as UC5
+usecase "Collect and Manage Specimen/Sample Collection and Laboratory Response Data" as UC6
+usecase "Administer Prophylaxis and Treatment" as UC7
+usecase "Report Adverse Events" as UC8
+usecase "Generate Activity Logs" as UC9
+usecase "Link Entities and Data" as UC10
+usecase "Trace Contact Exposure" as UC11
+usecase "Analyze and Visualize Data" as UC12
+usecase "Generate Reports" as UC13
+usecase "Exchange Data with Partner Organizations" as UC14
+usecase "Ensure Data Security and Availability" as UC15
+usecase "Ensure Privacy" as UC16
+usecase "Configure and Manage Systems" as UC17
+usecase "Communicate Information to Stakeholders" as UC18
+usecase "Synchronize Data" as UC19
+usecase "Backup and Monitor Systems" as UC20
+
+Investigator --> UC1
+Public_Health_Personnel --> UC2
+Public_Health_Personnel --> UC3
+Public_Health_Personnel --> UC4
+Public_Health_Personnel --> UC5
+Public_Health_Personnel --> UC9
+Public_Health_Personnel --> UC10
+Public_Health_Personnel --> UC11
+Public_Health_Personnel --> UC12
+Public_Health_Personnel --> UC13
+Public_Health_Personnel --> UC14
+Public_Health_Personnel --> UC18
+Public_Health_Personnel --> UC19
+Laboratory_Personnel --> UC6
+Treatment_Prophylaxis_Administrator --> UC7
+Adverse_Event_Reporter --> UC8
+System_Administrator_IT_Personnel --> UC15
+System_Administrator_IT_Personnel --> UC16
+System_Administrator_IT_Personnel --> UC17
+System_Administrator_IT_Personnel --> UC20
+
+UC1 --> UC2
+UC1 --> UC3
+UC1 --> UC4
+UC1 --> UC5
+UC1 --> UC6
+UC1 --> UC7
+UC1 --> UC8
+UC1 --> UC9
+UC1 --> UC10
+UC1 --> UC11
+UC1 --> UC12
+UC1 --> UC13
+UC1 --> UC14
+UC1 --> UC15
+UC1 --> UC16
+UC1 --> UC17
+UC1 --> UC18
+UC1 --> UC19
+UC1 --> UC20
+
+UC2 --> UC10
+UC3 --> UC10
+UC4 --> UC10
+UC5 --> UC10
+UC6 --> UC10
+UC7 --> UC10
+UC8 --> UC10
+UC9 --> UC10
+UC11 --> UC10
+UC12 --> UC10
+UC13 --> UC10
+UC14 --> UC10
+UC15 --> UC10
+UC16 --> UC10
+UC17 --> UC10
+UC18 --> UC10
+UC19 --> UC10
+UC20 --> UC10
+
+@enduml

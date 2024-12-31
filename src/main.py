@@ -3,7 +3,7 @@ import os
 import random
 from data_processing.pdf_extractor import process_srs_document
 from nlp.nlp_pipeline import process_text
-from uml_generation.uml_generator import generate_uml_code
+from uml_generation.uml_generator import generate_uml_code,generate_class_diagram_code,generate_activity_diagram_code
 from diagram_renderer import generate_uml_diagram
 
 
@@ -23,15 +23,17 @@ def main():
         return
     
     # Select a random PDF file
-    selected_pdf = random.choice(pdf_files)
+    selected_pdf = "0000 - inventory.pdf"
+    # print(selected_pdf,"hello")
+    # selected_pdf="Automating-Software-Design-Process-using-LLM-s/src/library.pdf"
     pdf_path = os.path.join(raw_data_dir, selected_pdf)
     
     base_filename = os.path.splitext(selected_pdf)[0]
     uml_code_filename = f"{base_filename}_use_case_uml_code.puml"
     uml_diagram_filename = f"{base_filename}_use_case_diagram.png"
     
-    uml_code_path = os.path.join("data", "processed", uml_code_filename)
-    uml_diagram_path = os.path.join("data", "processed", uml_diagram_filename)
+    uml_code_path = os.path.join("Data", "processed", uml_code_filename)
+    uml_diagram_path = os.path.join("Data", "processed", uml_diagram_filename)
     
     try:
         # Extract text from PDF
@@ -56,28 +58,53 @@ def main():
         # print(f"Processed data saved to {processed_data_path}")
 
         
-        # Generate UML code
-        uml_code = generate_uml_code(srs_text)
-        print(f"Generated use case UML code of length {len(uml_code)}.")
-        uml_data_path = "uml_data_output.txt"
-        with open(uml_data_path, "w", encoding="utf-8") as file:
-            file.write(uml_code)
-        print(f"Processed data saved to {uml_data_path}")
-        
-        # Save UML code
-        uml_code_path = os.path.abspath(os.path.join('data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_use_case_uml_code.puml"))
-        with open(uml_code_path, 'w', encoding='utf-8') as f:
-            f.write(uml_code)
-        print('*'*10)
-        print(f"Use case UML code saved to {uml_code_path}")
 
-        # Generate UML diagram
-        uml_diagram_path = os.path.abspath(os.path.join('data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_use_case_diagram.png"))
-        if generate_uml_diagram(uml_code_path, uml_diagram_path):
-            # print(f"Use case diagram generated and saved to {uml_diagram_path}")
-            pass
+
+        # use_case_uml_code = generate_uml_code(srs_text)
+        # print(f"Generated Use Case UML code of length {len(use_case_uml_code)}.")
+
+        # use_case_uml_path = os.path.abspath(os.path.join('Data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_use_case_uml_code.puml"))
+        # with open(use_case_uml_path, 'w', encoding='utf-8') as file:
+        #     file.write(use_case_uml_code)
+        # print(f"Use Case UML code saved to {use_case_uml_path}")
+
+        # Generate and save Activity Diagram UML code
+        # activity_uml_code = generate_activity_diagram_code(srs_text)
+        # print(f"Generated Activity Diagram UML code of length {len(activity_uml_code)}.")
+
+        # activity_uml_path = os.path.abspath(os.path.join('Data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_activity_uml_code.puml"))
+        # with open(activity_uml_path, 'w', encoding='utf-8') as file:
+        #     file.write(activity_uml_code)
+        # print(f"Activity Diagram UML code saved to {activity_uml_path}")
+
+        # Generate and save Class Diagram UML code
+        class_uml_code = generate_class_diagram_code(srs_text)
+        print(f"Generated Class Diagram UML code of length {len(class_uml_code)}.")
+
+        class_uml_path = os.path.abspath(os.path.join('Data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_class_uml_code.puml"))
+        with open(class_uml_path, 'w', encoding='utf-8') as file:
+            file.write(class_uml_code)
+        print(f"Class Diagram UML code saved to {class_uml_path}")
+
+        # # Generate diagrams for Use Case, Activity, and Class UML
+        # use_case_diagram_path = os.path.abspath(os.path.join('Data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_use_case_diagram.png"))
+        # if generate_uml_diagram(use_case_uml_path, use_case_diagram_path):
+        #     print(f"Use Case diagram generated and saved to {use_case_diagram_path}")
+        # else:
+        #     print("Failed to generate Use Case diagram.")
+
+        # activity_diagram_path = os.path.abspath(os.path.join('Data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_activity_diagram.png"))
+        # if generate_uml_diagram(activity_uml_path, activity_diagram_path):
+        #     print(f"Activity diagram generated and saved to {activity_diagram_path}")
+        # else:
+        #     print("Failed to generate Activity diagram.")
+
+        class_diagram_path = os.path.abspath(os.path.join('Data', 'processed', f"{os.path.splitext(os.path.basename(pdf_path))[0]}_class_diagram.png"))
+        if generate_uml_diagram(class_uml_path, class_diagram_path):
+            print(f"Class diagram generated and saved to {class_diagram_path}")
         else:
-            print("Failed to generate use case diagram.")
+            print("Failed to generate Class diagram.")
+
     except Exception as e:
         print(f"An error occurred: {str(e)}")
         import traceback

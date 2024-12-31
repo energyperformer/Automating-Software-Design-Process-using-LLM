@@ -1,0 +1,74 @@
+@startuml
+actor User
+actor "Agency Admin" as AA
+actor "Data Center Admin" as DCA
+actor Programmer
+actor "Legal/OIG" as LOIG
+
+usecase "Send Email" as UC1
+usecase "Receive Email" as UC2
+usecase "Delete Email" as UC3
+usecase "Reply to Email" as UC4
+usecase "Forward Email" as UC5
+usecase "Print Email" as UC6
+usecase "Customize Email Format" as UC7
+usecase "Set Email Rules" as UC8
+usecase "Spell Check Email" as UC9
+usecase "Organize Content into Folders" as UC10
+usecase "Create Contact Lists" as UC11
+usecase "Manage Public Folders" as UC12
+usecase "Share Distribution Lists" as UC13
+usecase "Create Calendars" as UC14
+usecase "Schedule Resources" as UC15
+usecase "Create Reminders/Tasks" as UC16
+usecase "Share Inbox/Calendar/Files" as UC17
+usecase "Delegate Permissions" as UC18
+usecase "Embed Links in Emails" as UC19
+usecase "Provision Email Accounts" as UC20
+usecase "Search Emails" as UC21
+usecase "Create Generic Email Accounts" as UC22
+usecase "Archive Emails" as UC23
+usecase "Restore Archive Items" as UC24
+usecase "Filter Archive" as UC25
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+User --> UC11
+User --> UC12
+User --> UC13
+User --> UC14
+User --> UC15
+User --> UC16
+User --> UC17
+User --> UC18
+User --> UC19
+User --> UC20
+User --> UC21
+User --> UC22
+User --> UC23
+User --> UC24
+User --> UC25
+
+AA --> UC12
+AA --> UC13
+AA --> UC20
+AA --> UC22
+
+DCA --> UC23
+DCA --> UC24
+DCA --> UC25
+
+Programmer --> UC1
+Programmer --> UC2
+
+LOIG --> UC21
+LOIG --> UC24
+@enduml

@@ -1,0 +1,72 @@
+@startuml
+    actor SystemAdministrator
+    actor DatabaseAdministrator
+    actor NetworkAdministrator
+    actor EndUser
+
+    usecase "Configure ILS Features and Processes" as UC1
+    usecase "Monitor Server Performance" as UC2
+    usecase "Troubleshoot Server Issues" as UC3
+    usecase "Monitor Database Performance" as UC4
+    usecase "Monitor Application Performance" as UC5
+    usecase "Manage User and Group Accounts and Privileges" as UC6
+    usecase "Manage Server and Client Software Installation, Upgrades, and Updates" as UC7
+    usecase "Backup Databases, Configuration Files, Log Files, etc." as UC8
+    usecase "Create Custom Dashboards" as UC9
+
+    UC1 --> "Configure Cataloging Settings" as UC1_1
+    UC1 --> "Configure Circulation Policies" as UC1_2
+    UC1 --> "Configure Access Control Rules" as UC1_3
+
+    UC2 --> "Check CPU Usage" as UC2_1
+    UC2 --> "Check Memory Usage" as UC2_2
+    UC2 --> "Check Disk Space" as UC2_3
+
+    UC3 --> "Identify Server Errors" as UC3_1
+    UC3 --> "Resolve Server Errors" as UC3_2
+    UC3 --> "Restart Server Services" as UC3_3
+
+    UC4 --> "Check Query Performance" as UC4_1
+    UC4 --> "Check Index Usage" as UC4_2
+    UC4 --> "Analyze Database Logs" as UC4_3
+
+    UC5 --> "Monitor Application Response Time" as UC5_1
+    UC5 --> "Check Application Logs" as UC5_2
+    UC5 --> "Identify Application Bottlenecks" as UC5_3
+
+    UC6 --> "Create User Accounts" as UC6_1
+    UC6 --> "Create Group Accounts" as UC6_2
+    UC6 --> "Set User Privileges" as UC6_3
+    UC6 --> "Set Group Privileges" as UC6_4
+
+    UC7 --> "Install Software Updates" as UC7_1
+    UC7 --> "Upgrade Software Versions" as UC7_2
+    UC7 --> "Install New Software" as UC7_3
+
+    UC8 --> "Schedule Backups" as UC8_1
+    UC8 --> "Perform Incremental Backups" as UC8_2
+    UC8 --> "Perform Full Backups" as UC8_3
+    UC8 --> "Restore Backups" as UC8_4
+
+    UC9 --> "Select Data Sources" as UC9_1
+    UC9_1 --> UC4_1 : uses
+    UC9_1 --> UC5_1 : uses
+    UC9 --> "Design Dashboard Layout" as UC9_2
+    UC9 --> "Implement Dashboard Features" as UC9_3
+    UC9 --> "Test Dashboard Functionality" as UC9_4
+
+    SystemAdministrator --> UC1
+    SystemAdministrator --> UC2
+    SystemAdministrator --> UC3
+    SystemAdministrator --> UC4
+    SystemAdministrator --> UC5
+    SystemAdministrator --> UC6
+    SystemAdministrator --> UC7
+    SystemAdministrator --> UC8
+    SystemAdministrator --> UC9
+
+    DatabaseAdministrator --> UC4
+    NetworkAdministrator --> UC2
+    NetworkAdministrator --> UC3
+    EndUser --> UC9
+    @enduml

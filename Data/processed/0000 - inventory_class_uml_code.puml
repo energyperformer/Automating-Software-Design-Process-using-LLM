@@ -1,0 +1,155 @@
+@startuml
+
+class Asset {
+  + id: String
+  + name: String
+  + type: String
+  + location: Location
+  + status: String
+  + editAsset()
+  + modifyAsset()
+  + transferAsset()
+  + returnAsset()
+}
+
+class User {
+  + id: String
+  + name: String
+  + role: String
+  + permissions: Permission
+  + authenticate()
+  + createRequest()
+  + changePermissions()
+  + searchAssets()
+}
+
+class Inventory {
+  + assets: List<Asset>
+  + locations: List<Location>
+  + addAsset()
+  + removeAsset()
+  + updateInventory()
+  + generateReport()
+}
+
+class Request {
+  + id: String
+  + user: User
+  + asset: Asset
+  + status: String
+  + approveRequest()
+  + rejectRequest()
+  + notifyUser()
+}
+
+class Permission {
+  + id: String
+  + role: String
+  + actions: List<String>
+  + assignPermission()
+  + revokePermission()
+  + checkPermission()
+}
+
+class Location {
+  + id: String
+  + name: String
+  + capacity: int
+  + addAsset()
+  + removeAsset()
+  + updateLocation()
+}
+
+class Report {
+  + id: String
+  + type: String
+  + data: String
+  + generateReport()
+  + filterReport()
+  + sortReport()
+}
+
+class UniversityPart {
+  + id: String
+  + name: String
+  + assets: List<Asset>
+  + addAsset()
+  + removeAsset()
+  + updateUniversityPart()
+}
+
+class Authentication {
+  + users: List<User>
+  + credentials: Map<String, String>
+  + login()
+  + logout()
+  + changePassword()
+}
+
+class InventoryAdmin {
+  + id: String
+  + name: String
+  + permissions: Permission
+  + addAsset()
+  + editAsset()
+  + transferAsset()
+  + approveRequest()
+}
+
+class DepartmentAdmin {
+  + id: String
+  + name: String
+  + permissions: Permission
+  + addAsset()
+  + editAsset()
+  + transferAsset()
+  + approveRequest()
+}
+
+class FacultyAdmin {
+  + id: String
+  + name: String
+  + permissions: Permission
+  + addAsset()
+  + editAsset()
+  + transferAsset()
+  + approveRequest()
+}
+
+class UniversityAdmin {
+  + id: String
+  + name: String
+  + permissions: Permission
+  + addAsset()
+  + editAsset()
+  + transferAsset()
+  + approveRequest()
+}
+
+class ITAdmin {
+  + id: String
+  + name: String
+  + permissions: Permission
+  + createPermission()
+  + assignPermission()
+  + revokePermission()
+  + maintainSystem()
+}
+
+' Relationships
+Inventory "1" -- "0..*" Asset : manages
+Asset "1" -- "1" Location : stored in
+User "1" -- "0..*" Request : creates
+User "1" -- "0..*" Permission : has
+InventoryAdmin <|-- User
+DepartmentAdmin <|-- User
+FacultyAdmin <|-- User
+UniversityAdmin <|-- User
+ITAdmin <|-- User
+Inventory "1" -- "0..*" Report : generates
+UniversityPart "1" -- "0..*" Asset : owns
+Authentication "1" -- "0..*" User : manages
+Request "1" -- "1" Inventory : managed by
+ITAdmin "1" -- "0..*" Permission : creates and manages
+
+@enduml

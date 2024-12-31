@@ -1,0 +1,47 @@
+@startuml
+    actor Customer
+    actor Administrator
+    actor Sales_Person
+
+    usecase "Register Customer" as UC1
+    usecase "Login Customer" as UC2
+    usecase "Edit Customer Details" as UC3
+    usecase "Logout Customer" as UC4
+    usecase "Add Item To Cart" as UC5
+    usecase "Checkout An Order" as UC6
+    usecase "Login Administrator" as UC7
+    usecase "Logout Administrator" as UC8
+    usecase "Add User" as UC9
+    usecase "Remove User" as UC10
+    usecase "Change User Properties" as UC11
+    usecase "Install Plug-ins" as UC12
+    usecase "Remove Plug-ins" as UC13
+    usecase "Manage Plug-in Options" as UC14
+    usecase "Install patch process" as UC15
+    usecase "Login Sales Person" as UC16
+    usecase "Logout Sales Person" as UC17
+    usecase "Add Product" as UC18
+    usecase "Remove Product" as UC19
+    usecase "Update Product Attributes" as UC20
+
+    Customer --> UC1
+    Customer --> UC2
+    Customer --> UC3
+    Customer --> UC4
+    Customer --> UC5
+    Customer --> UC6
+    Administrator --> UC7
+    Administrator --> UC8
+    Administrator --> UC9
+    Administrator --> UC10
+    Administrator --> UC11
+    Administrator --> UC12
+    Administrator --> UC13
+    Administrator --> UC14
+    Administrator --> UC15
+    Sales_Person --> UC16
+    Sales_Person --> UC17
+    Sales_Person --> UC18
+    Sales_Person --> UC19
+    Sales_Person --> UC20
+    @enduml
