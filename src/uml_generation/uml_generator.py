@@ -5,7 +5,7 @@ import PyPDF2
 from huggingface_hub import InferenceClient
 
 # free Hugging Face API token
-HUGGINGFACEHUB_API_TOKEN = "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"
+HUGGINGFACEHUB_API_TOKEN = "HUGGING_FACE_APIKEY"
 
 # Initialize the Inference Client
 client = InferenceClient(
