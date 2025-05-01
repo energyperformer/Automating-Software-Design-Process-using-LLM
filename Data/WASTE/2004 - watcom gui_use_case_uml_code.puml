@@ -1,7 +1,0 @@
-@startuml
-actor "ctr_cancelbutton"
-actor "GUIGetFro"
-actor "Kit"
-actor "TextLeng"
-actor "Reso urce Files"
-@enduml
