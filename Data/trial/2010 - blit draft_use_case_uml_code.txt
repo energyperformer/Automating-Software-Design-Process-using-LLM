@@ -1,5 +1,0 @@
-actor "Project Team                                                                                                                     ................................................................................................................."
-actor "Tab"
-actor "SQL Server"
-actor "xxxTechnical Writer"
-actor "Document Created - Initial Revision"
